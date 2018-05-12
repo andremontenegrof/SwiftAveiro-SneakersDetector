@@ -9,8 +9,11 @@ import Foundation
 import Vision
 import UIKit
 
+//We could have a model outputing Float values instead. Hence the usage of these typealias.
 typealias Confidence = Double
-typealias CoordinateElement = Double
+typealias BoxCoordinate = Double
+
+typealias ClassIndex = Int
 
 protocol ObjectDetectorDelegate: class {
 
@@ -35,7 +38,7 @@ class ObjectDetector {
 
     struct Prediction {
 
-        let labelIndex: Int
+        let classIndex: ClassIndex
         let confidence: Confidence
         let boundingBox: CGRect //normalized rect (all coordinates in [0,1])
     }
@@ -52,20 +55,23 @@ class ObjectDetector {
     let model: MLModel
     let throttler = Throttler()
 
-    init?(model: MLModel) {
+    init(model: MLModel) {
+
+        self.model = model
+
+        setupDetectionRequest()
+    }
+
+    func setupDetectionRequest() {
 
         do {
 
-            self.model = model
-
             let visionModel = try VNCoreMLModel(for: model)
-
             let requestCompletionHandler: VNRequestCompletionHandler = { [weak self] request, error in
 
                 if let predictionError = error {
 
                     print("did fail prediction with error \(predictionError.localizedDescription)")
-
                     self?.delegate?.didFailPrediction(withError: predictionError)
                 }
 
@@ -86,7 +92,7 @@ class ObjectDetector {
 
         } catch {
 
-            return nil
+            print("did fail creating detection request: \(error)")
         }
     }
 
@@ -95,9 +101,6 @@ class ObjectDetector {
         self.predict(requestHandler: VNImageRequestHandler(cgImage: cgImage))
     }
 
-    //ask to implement this predict with pixelbuffer
-    //ask to use throttler
-
     func predict(pixelBuffer: CVPixelBuffer) {
 
         throttler.async(to: predictionQueue, delay: 1.0) {
@@ -105,8 +108,12 @@ class ObjectDetector {
             self.predict(requestHandler: VNImageRequestHandler(cvPixelBuffer: pixelBuffer))
         }
     }
+}
 
-    fileprivate func predict(requestHandler: VNImageRequestHandler) {
+//MARK: - Predict
+fileprivate extension ObjectDetector {
+
+    func predict(requestHandler: VNImageRequestHandler) {
 
         guard let detectionRequest = self.detectionRequest else {
 
@@ -124,54 +131,54 @@ class ObjectDetector {
         }
     }
 
-    //confidenceThreshold should change according to model precision
     func predictions(from features: [VNCoreMLFeatureValueObservation],
                      confidenceThreshold: Confidence,
                      maxCount: Int) -> [Prediction]? {
 
-        guard let coordinates = features[0].featureValue.multiArrayValue,
-            let confidence = features[1].featureValue.multiArrayValue else {
+        guard let boxesArray = features[0].featureValue.multiArrayValue,
+            let confidencesArray = features[1].featureValue.multiArrayValue else {
 
                 return nil
         }
 
         var unorderedPredictions = [Prediction]()
 
-        let boundingBoxesDimensionIndex = 0
-        let classesDimensionIndex = 1
+        let boxesCount = boxesArray.shape[0].intValue
+        let boxesStride = Int(truncating: boxesArray.strides[0])
+        let boxesPointer = UnsafePointer<BoxCoordinate>(OpaquePointer(boxesArray.dataPointer))
 
-        let numberOfBoundingBoxes = confidence.shape[boundingBoxesDimensionIndex].intValue
-        let numberOfClasses = confidence.shape[classesDimensionIndex].intValue
-        let confidencePointer = UnsafeMutablePointer<Confidence>(OpaquePointer(confidence.dataPointer))
-        let coordinatesPointer = UnsafeMutablePointer<Double>(OpaquePointer(coordinates.dataPointer))
-        let boxesStride = Int(truncating: coordinates.strides[boundingBoxesDimensionIndex])
+        let classesCount = confidencesArray.shape[1].intValue
+        let confidencesPointer = UnsafePointer<Confidence>(OpaquePointer(confidencesArray.dataPointer))
 
-        for boxIdx in 0..<numberOfBoundingBoxes {
+        for boxIdx in 0..<boxesCount {
 
+            //get the class with the highest confidence
             var maxConfidence = 0.0
-            var maxIndex = 0
-            for classIdx in 0..<numberOfClasses {
+            var bestClassIdx = 0
+            for classIdx in 0..<classesCount {
 
-                let confidence = confidencePointer[boxIdx * numberOfClasses + classIdx]
+                let confidence = confidencesPointer[boxIdx * classesCount + classIdx]
 
                 if confidence > maxConfidence {
 
                     maxConfidence = confidence
-                    maxIndex = classIdx
+                    bestClassIdx = classIdx
                 }
             }
 
+            //create the bounding box
+            let x = boxesPointer[boxIdx * boxesStride]
+            let y = boxesPointer[boxIdx * boxesStride + 1]
+            let width = boxesPointer[boxIdx * boxesStride + 2]
+            let height = boxesPointer[boxIdx * boxesStride + 3]
+
+            //create the normalized rect with its origin
+            let rect = ObjectDetector.rectFromBoundingBox(x: x, y: y, width: width, height: height)
+
+            //we will only return a prediction if its confidence is > confidenceThreshold
             if maxConfidence > confidenceThreshold {
 
-                let x = coordinatesPointer[boxIdx * boxesStride]
-                let y = coordinatesPointer[boxIdx * boxesStride + 1]
-                let width = coordinatesPointer[boxIdx * boxesStride + 2]
-                let height = coordinatesPointer[boxIdx * boxesStride + 3]
-
-                //create the normalized rect with its origin
-                let rect = self.rectFromBoundingBoxCoordinates(x: x, y: y, width: width, height: height)
-
-                let prediction = Prediction(labelIndex: maxIndex,
+                let prediction = Prediction(classIndex: bestClassIdx,
                                             confidence: maxConfidence,
                                             boundingBox: rect)
 
@@ -187,13 +194,15 @@ class ObjectDetector {
     }
 }
 
-extension ObjectDetector {
+//MARK: - Helpers
+
+fileprivate extension ObjectDetector {
 
     ///Transforms the given bounding box coordinates to a CGRect. From the given x and y that correspond to the center of the box, we create a CGRect with the actual origin point of the box.
-    func rectFromBoundingBoxCoordinates(x: CoordinateElement,
-                                        y: CoordinateElement,
-                                        width: CoordinateElement,
-                                        height: CoordinateElement) -> CGRect {
+    static func rectFromBoundingBox(x: BoxCoordinate,
+                                    y: BoxCoordinate,
+                                    width: BoxCoordinate,
+                                    height: BoxCoordinate) -> CGRect {
 
         let origin = CGPoint(x: CGFloat(x - width / 2), y: CGFloat(y - height / 2))
         let size = CGSize(width: CGFloat(width), height: CGFloat(height))
@@ -201,4 +210,3 @@ extension ObjectDetector {
         return CGRect(origin: origin, size: size)
     }
 }
-

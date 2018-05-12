@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let model = SneakersDetector_67().model
         let appMode: AppMode = .staticImages
 
-        let objectDetector: ObjectDetector = ObjectDetector(model: model)!
+        let objectDetector: ObjectDetector = ObjectDetector(model: model)
 
         self.startApp(with: appMode, objectDetector: objectDetector)
 
