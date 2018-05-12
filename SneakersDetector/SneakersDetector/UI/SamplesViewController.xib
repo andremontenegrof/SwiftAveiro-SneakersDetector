@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SamplesViewController" customModule="SneakersDetector" customModuleProvider="target">
+            <connections>
+                <outlet property="imageView" destination="L5U-0l-nn3" id="LVQ-zq-Shv"/>
+                <outlet property="nextButton" destination="wWI-7W-qnx" id="3qr-fg-IZZ"/>
+                <outlet property="previousButton" destination="5Wv-J0-fhi" id="zTu-iE-izc"/>
+                <outlet property="view" destination="iN0-l3-epB" id="VRh-2v-XDO"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L5U-0l-nn3">
+                    <rect key="frame" x="27" y="100" width="320" height="320"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="320" id="M5r-al-zSY"/>
+                        <constraint firstAttribute="width" constant="320" id="Y4d-MF-UkK"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMW-Yo-sQG">
+                    <rect key="frame" x="75.5" y="518" width="223" height="80"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Wv-J0-fhi">
+                            <rect key="frame" x="44" y="25" width="59" height="30"/>
+                            <state key="normal" title="Previous"/>
+                            <connections>
+                                <action selector="didPressPrevious:" destination="-1" eventType="touchUpInside" id="PEa-Qp-lhw"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wWI-7W-qnx">
+                            <rect key="frame" x="147" y="25" width="32" height="30"/>
+                            <state key="normal" title="Next"/>
+                            <connections>
+                                <action selector="didPressNext:" destination="-1" eventType="touchUpInside" id="1CR-jS-Ead"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="5Wv-J0-fhi" firstAttribute="centerY" secondItem="JMW-Yo-sQG" secondAttribute="centerY" id="1C0-ul-cT8"/>
+                        <constraint firstItem="5Wv-J0-fhi" firstAttribute="leading" secondItem="JMW-Yo-sQG" secondAttribute="leading" constant="44" id="BUq-QA-JRD"/>
+                        <constraint firstAttribute="trailing" secondItem="wWI-7W-qnx" secondAttribute="trailing" constant="44" id="iBs-g0-0h3"/>
+                        <constraint firstItem="wWI-7W-qnx" firstAttribute="leading" secondItem="5Wv-J0-fhi" secondAttribute="trailing" constant="44" id="kqS-C7-gIS"/>
+                        <constraint firstItem="wWI-7W-qnx" firstAttribute="centerY" secondItem="5Wv-J0-fhi" secondAttribute="centerY" id="wYZ-d0-ufd"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="L5U-0l-nn3" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="1OS-tK-Zik"/>
+                <constraint firstItem="L5U-0l-nn3" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="80" id="3nR-UF-gKs"/>
+                <constraint firstItem="JMW-Yo-sQG" firstAttribute="top" secondItem="L5U-0l-nn3" secondAttribute="bottom" constant="98" id="HVg-IB-3y4"/>
+                <constraint firstItem="JMW-Yo-sQG" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="gs7-zy-emv"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="JMW-Yo-sQG" secondAttribute="bottom" constant="69" id="h6F-Ea-iB9"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
+        </view>
+    </objects>
+</document>
