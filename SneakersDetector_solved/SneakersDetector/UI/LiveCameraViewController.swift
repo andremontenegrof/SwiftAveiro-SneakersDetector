@@ -148,7 +148,7 @@ extension LiveCameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate
 
         connection.videoOrientation = .portrait
 
-        self.objectDetector.predict(pixelBuffer: pixelBuffer)
+        self.objectDetector.predict(pixelBuffer: pixelBuffer, throttlingInterval: 1.0)
     }
 }
 

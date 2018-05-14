@@ -67,27 +67,8 @@ class ObjectDetector {
         do {
 
             let visionModel = try VNCoreMLModel(for: model)
-            let requestCompletionHandler: VNRequestCompletionHandler = { [weak self] request, error in
 
-                if let predictionError = error {
-
-                    print("did fail prediction with error \(predictionError.localizedDescription)")
-                    self?.delegate?.didFailPrediction(withError: predictionError)
-                }
-
-                //check if this selfInstance is ok
-                if let selfInstance = self,
-                    let resultFeatures = request.results as? [VNCoreMLFeatureValueObservation],
-                    let predictions = self?.predictions(from: resultFeatures,
-                                                        confidenceThreshold: selfInstance.confidenceThreshold,
-                                                        maxCount: selfInstance.maxNumberOfPredictions) {
-
-                    print(predictions)
-                    selfInstance.delegate?.didReceive(predictions: predictions)
-                }
-            }
-
-            detectionRequest = VNCoreMLRequest(model: visionModel, completionHandler: requestCompletionHandler)
+            detectionRequest = VNCoreMLRequest(model: visionModel, completionHandler: self.handleDetection)
             detectionRequest?.imageCropAndScaleOption = .scaleFill
 
         } catch {
@@ -98,14 +79,28 @@ class ObjectDetector {
 
     func predict(cgImage: CGImage) {
 
-        self.predict(requestHandler: VNImageRequestHandler(cgImage: cgImage))
+        predictionQueue.async {
+
+            self.predict(requestHandler: VNImageRequestHandler(cgImage: cgImage))
+        }
     }
 
-    func predict(pixelBuffer: CVPixelBuffer) {
+    ///Executes the request to predict for the given pixelBuffer. A throttlingInterval might be passed to avoid unneeded calls to the model.
+    func predict(pixelBuffer: CVPixelBuffer, throttlingInterval: TimeInterval?) {
 
-        throttler.async(to: predictionQueue, delay: 1.0) {
+        if let throttlingInterval = throttlingInterval {
 
-            self.predict(requestHandler: VNImageRequestHandler(cvPixelBuffer: pixelBuffer))
+            throttler.async(to: predictionQueue, interval: throttlingInterval) {
+
+                self.predict(requestHandler: VNImageRequestHandler(cvPixelBuffer: pixelBuffer))
+            }
+
+        } else {
+
+            predictionQueue.async {
+
+                self.predict(requestHandler: VNImageRequestHandler(cvPixelBuffer: pixelBuffer))
+            }
         }
     }
 }
@@ -131,6 +126,25 @@ fileprivate extension ObjectDetector {
         }
     }
 
+    func handleDetection(for request: VNRequest, error: Error?) {
+
+        if let predictionError = error {
+
+            print("did fail prediction with error \(predictionError.localizedDescription)")
+            self.delegate?.didFailPrediction(withError: predictionError)
+        }
+
+        //check if this selfInstance is ok
+        if let resultFeatures = request.results as? [VNCoreMLFeatureValueObservation],
+            let predictions = self.predictions(from: resultFeatures,
+                                                confidenceThreshold: self.confidenceThreshold,
+                                                maxCount: self.maxNumberOfPredictions) {
+
+            print(predictions)
+            self.delegate?.didReceive(predictions: predictions)
+        }
+    }
+
     func predictions(from features: [VNCoreMLFeatureValueObservation],
                      confidenceThreshold: Confidence,
                      maxCount: Int) -> [Prediction]? {
@@ -145,10 +159,11 @@ fileprivate extension ObjectDetector {
 
         let boxesCount = boxesArray.shape[0].intValue
         let boxesStride = Int(truncating: boxesArray.strides[0])
-        let boxesPointer = UnsafePointer<BoxCoordinate>(OpaquePointer(boxesArray.dataPointer))
+        let boxesPointer = boxesArray.dataPointer.bindMemory(to: BoxCoordinate.self, capacity: boxesCount)
 
+        let confidencesCount = confidencesArray.shape[0].intValue
         let classesCount = confidencesArray.shape[1].intValue
-        let confidencesPointer = UnsafePointer<Confidence>(OpaquePointer(confidencesArray.dataPointer))
+        let confidencesPointer = confidencesArray.dataPointer.bindMemory(to: Confidence.self, capacity: confidencesCount)
 
         for boxIdx in 0..<boxesCount {
 

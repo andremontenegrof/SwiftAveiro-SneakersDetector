@@ -28,8 +28,6 @@
 		A9A379762077A13400FA1304 /* MLModel+ObjectDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A379752077A13400FA1304 /* MLModel+ObjectDetection.swift */; };
 		A9A3797C2077BC5A00FA1304 /* ObjectDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A3797B2077BC5A00FA1304 /* ObjectDetector.swift */; };
 		A9A3EDF120837B58006D4A74 /* SamplesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A3EDF020837B58006D4A74 /* SamplesViewController.xib */; };
-		A9A5B80720A76A8F00C56853 /* SneakersDetector_67.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A9A5B80620A76A8F00C56853 /* SneakersDetector_67.mlmodel */; };
-		A9A5B80B20A76B1700C56853 /* SneakersDetector_67_halfprecision.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A9A5B80A20A76B1700C56853 /* SneakersDetector_67_halfprecision.mlmodel */; };
 		A9AAB54620837F210065C955 /* TakePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AAB54520837F210065C955 /* TakePhotoViewController.swift */; };
 		A9AAB5482083818C0065C955 /* LiveCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AAB5472083818C0065C955 /* LiveCameraViewController.swift */; };
 		A9AAB54A208382C30065C955 /* LiveCameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AAB549208382C30065C955 /* LiveCameraViewController.xib */; };
@@ -61,8 +59,6 @@
 		A9A379752077A13400FA1304 /* MLModel+ObjectDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLModel+ObjectDetection.swift"; sourceTree = "<group>"; };
 		A9A3797B2077BC5A00FA1304 /* ObjectDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetector.swift; sourceTree = "<group>"; };
 		A9A3EDF020837B58006D4A74 /* SamplesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SamplesViewController.xib; sourceTree = "<group>"; };
-		A9A5B80620A76A8F00C56853 /* SneakersDetector_67.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SneakersDetector_67.mlmodel; path = ../../../../mlmodels/SneakersDetector_67.mlmodel; sourceTree = "<group>"; };
-		A9A5B80A20A76B1700C56853 /* SneakersDetector_67_halfprecision.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SneakersDetector_67_halfprecision.mlmodel; path = ../../../../mlmodels/SneakersDetector_67_halfprecision.mlmodel; sourceTree = "<group>"; };
 		A9AAB54520837F210065C955 /* TakePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePhotoViewController.swift; sourceTree = "<group>"; };
 		A9AAB5472083818C0065C955 /* LiveCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCameraViewController.swift; sourceTree = "<group>"; };
 		A9AAB549208382C30065C955 /* LiveCameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveCameraViewController.xib; sourceTree = "<group>"; };
@@ -84,8 +80,6 @@
 		A915FC492090F01200CD6E5E /* MLModels */ = {
 			isa = PBXGroup;
 			children = (
-				A9A5B80A20A76B1700C56853 /* SneakersDetector_67_halfprecision.mlmodel */,
-				A9A5B80620A76A8F00C56853 /* SneakersDetector_67.mlmodel */,
 			);
 			path = MLModels;
 			sourceTree = "<group>";
@@ -256,12 +250,10 @@
 				A9AAB5482083818C0065C955 /* LiveCameraViewController.swift in Sources */,
 				A95995DA206573C9008F6036 /* AppDelegate.swift in Sources */,
 				A973F7992098726E00993E71 /* CGRect+ObjectDetection.swift in Sources */,
-				A9A5B80B20A76B1700C56853 /* SneakersDetector_67_halfprecision.mlmodel in Sources */,
 				A9AE528720A655CF00C11607 /* Throttler.swift in Sources */,
 				A9AAB54620837F210065C955 /* TakePhotoViewController.swift in Sources */,
 				A9A3797C2077BC5A00FA1304 /* ObjectDetector.swift in Sources */,
 				A9B60D9620A3870100425B8F /* NonMaximumSuppression.swift in Sources */,
-				A9A5B80720A76A8F00C56853 /* SneakersDetector_67.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

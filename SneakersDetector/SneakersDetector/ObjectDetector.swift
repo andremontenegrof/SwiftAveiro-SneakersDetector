@@ -66,28 +66,13 @@ class ObjectDetector {
 
         do {
 
+            //VNCoreMLModel is the Vision object that wraps a CoreML model.
             let visionModel = try VNCoreMLModel(for: model)
-            let requestCompletionHandler: VNRequestCompletionHandler = { [weak self] request, error in
 
-                if let predictionError = error {
+            // 2 - Create the detection request by passing the visionModel and self.handleDetection as arguments.
+            // The detection request should be a VNCoreMLRequest. Vision has other types of requests used for built-in features such as barcodes or faces detection. However, VNCoreMLRequest is the one to be used when we want to perform predictions in CoreML models. The results are passed to the completionHandler passed in the initialization.
 
-                    print("did fail prediction with error \(predictionError.localizedDescription)")
-                    self?.delegate?.didFailPrediction(withError: predictionError)
-                }
-
-                //check if this selfInstance is ok
-                if let selfInstance = self,
-                    let resultFeatures = request.results as? [VNCoreMLFeatureValueObservation],
-                    let predictions = self?.predictions(from: resultFeatures,
-                                                        confidenceThreshold: selfInstance.confidenceThreshold,
-                                                        maxCount: selfInstance.maxNumberOfPredictions) {
-
-                    print(predictions)
-                    selfInstance.delegate?.didReceive(predictions: predictions)
-                }
-            }
-
-            detectionRequest = VNCoreMLRequest(model: visionModel, completionHandler: requestCompletionHandler)
+            //detectionRequest = <#initialize here#>
             detectionRequest?.imageCropAndScaleOption = .scaleFill
 
         } catch {
@@ -98,14 +83,28 @@ class ObjectDetector {
 
     func predict(cgImage: CGImage) {
 
-        self.predict(requestHandler: VNImageRequestHandler(cgImage: cgImage))
+        predictionQueue.async {
+
+            self.predict(requestHandler: VNImageRequestHandler(cgImage: cgImage))
+        }
     }
 
-    func predict(pixelBuffer: CVPixelBuffer) {
+    ///Executes the request to predict for the given pixelBuffer. A throttlingInterval might be passed to avoid unneeded calls to the model.
+    func predict(pixelBuffer: CVPixelBuffer, throttlingInterval: TimeInterval?) {
 
-        throttler.async(to: predictionQueue, delay: 1.0) {
+        if let throttlingInterval = throttlingInterval {
 
-            self.predict(requestHandler: VNImageRequestHandler(cvPixelBuffer: pixelBuffer))
+            throttler.async(to: predictionQueue, interval: throttlingInterval) {
+
+                self.predict(requestHandler: VNImageRequestHandler(cvPixelBuffer: pixelBuffer))
+            }
+
+        } else {
+
+            predictionQueue.async {
+
+                self.predict(requestHandler: VNImageRequestHandler(cvPixelBuffer: pixelBuffer))
+            }
         }
     }
 }
@@ -113,22 +112,24 @@ class ObjectDetector {
 //MARK: - Predict
 fileprivate extension ObjectDetector {
 
+    // 3 - Implement predict(requestHandler:). For each image we need to perform the detection request against the passed instance of VNImageRequestHandler.
+    //
+    //  Each image used for predictions needs to have its associated VNImageRequestHandler. This pattern exists to be possible to perform several Vision executions in the same image and complete once they all return. For example, we could want to detect faces and objects in the same image all at once. However, in your implementation you only need to perform the detectionRequest
     func predict(requestHandler: VNImageRequestHandler) {
 
-        guard let detectionRequest = self.detectionRequest else {
+        // <#perform here the detectionRequest agains the given requestHandler#>
+    }
 
-            self.delegate?.didFailPrediction(withError: ObjectDetectorError.generic)
-            return
+    func handleDetection(for request: VNRequest, error: Error?) {
+
+        if let predictionError = error {
+
+            print("did fail prediction with error \(predictionError.localizedDescription)")
+            self.delegate?.didFailPrediction(withError: predictionError)
         }
 
-        do {
-
-            try requestHandler.perform([detectionRequest])
-
-        } catch {
-
-            self.delegate?.didFailPrediction(withError: ObjectDetectorError.generic)
-        }
+        // 4 - Get the results the request object. They should be casted to VNCoreMLFeatureValueObservation.
+        // Create the predictions using self.predictions(from:confidenceThreshold:maxCount:) and send them to the ObjectDetectorDelegate.
     }
 
     func predictions(from features: [VNCoreMLFeatureValueObservation],
@@ -141,14 +142,25 @@ fileprivate extension ObjectDetector {
                 return nil
         }
 
+        print(boxesArray)
+        print(confidencesArray)
+
         var unorderedPredictions = [Prediction]()
 
-        let boxesCount = boxesArray.shape[0].intValue
-        let boxesStride = Int(truncating: boxesArray.strides[0])
-        let boxesPointer = UnsafePointer<BoxCoordinate>(OpaquePointer(boxesArray.dataPointer))
-
+        //here we are using the shape property to fetch
+        let confidencesCount = confidencesArray.shape[0].intValue
         let classesCount = confidencesArray.shape[1].intValue
-        let confidencesPointer = UnsafePointer<Confidence>(OpaquePointer(confidencesArray.dataPointer))
+//        let confidencesPointer = UnsafePointer<Confidence>(OpaquePointer(confidencesArray.dataPointer))
+        let confidencesPointer = confidencesArray.dataPointer.bindMemory(to: Confidence.self, capacity: confidencesCount)
+
+        // 5 - Use shape property to get the number of boxes
+        let boxesCount = boxesArray.shape[0].intValue
+
+        // 6 - Define boxesPointer. Please see definition of confidencesPointer.
+        //let boxesPointer =
+
+        // 7 - Use stride property to properly infer the number of elements that compose the box.
+        //let boxesStride =
 
         for boxIdx in 0..<boxesCount {
 
@@ -166,31 +178,38 @@ fileprivate extension ObjectDetector {
                 }
             }
 
+            // 8 - After ? and ? you can uncomment the code related to bounding box creation
             //create the bounding box
-            let x = boxesPointer[boxIdx * boxesStride]
-            let y = boxesPointer[boxIdx * boxesStride + 1]
-            let width = boxesPointer[boxIdx * boxesStride + 2]
-            let height = boxesPointer[boxIdx * boxesStride + 3]
+//            let x = boxesPointer[boxIdx * boxesStride]
+//            let y = boxesPointer[boxIdx * boxesStride + 1]
+//            let width = boxesPointer[boxIdx * boxesStride + 2]
+//            let height = boxesPointer[boxIdx * boxesStride + 3]
 
             //create the normalized rect with its origin
-            let rect = ObjectDetector.rectFromBoundingBox(x: x, y: y, width: width, height: height)
+//            let rect = ObjectDetector.rectFromBoundingBox(x: x, y: y, width: width, height: height)
 
             //we will only return a prediction if its confidence is > confidenceThreshold
             if maxConfidence > confidenceThreshold {
 
-                let prediction = Prediction(classIndex: bestClassIdx,
-                                            confidence: maxConfidence,
-                                            boundingBox: rect)
+                // 9 - Define boundingBox with the correct value
+                let boundingBox = CGRect.zero
+
+                // 10 - Define confidence with the correct value
+                let confidence: Confidence = 0
+
+                let prediction = Prediction(classIndex: bestClassIdx, confidence: confidence, boundingBox: boundingBox)
 
                 unorderedPredictions.append(prediction)
             }
         }
 
-        let orderedPredictions = unorderedPredictions.sorted { $0.confidence > $1.confidence }
+        // 11 - We should sort the unorderedPredictions by confidence before being returning
 
-        let nmsOrderedPredictions = orderedPredictions.r_predictionsAfterNMS(threshold: self.model.nmsThreshold)
+        // 12 - Return the ordered predictions capped to the maxCount given as argument.
 
-        return Array(nmsOrderedPredictions.prefix(upTo: min(nmsOrderedPredictions.count, maxCount)))
+        // 13 - You can try to apply Non-maximum suppression to return just the boxes with the highest confidence for each object. Implement predictionsAfterNMS(threshold:) in NonMaximumSuppresion.swift
+
+        return unorderedPredictions
     }
 }
 

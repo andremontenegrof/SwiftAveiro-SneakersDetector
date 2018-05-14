@@ -13,9 +13,9 @@ class Throttler {
 
     var lastExecutionTime = DispatchTime(uptimeNanoseconds: 1)
 
-    func async(to queue: DispatchQueue, delay: TimeInterval, callback: @escaping Callback) {
+    func async(to queue: DispatchQueue, interval: TimeInterval, callback: @escaping Callback) {
 
-        if DispatchTime.now() > lastExecutionTime + DispatchTimeInterval.milliseconds(Int(delay * 1000.0)) {
+        if DispatchTime.now() > lastExecutionTime + DispatchTimeInterval.milliseconds(Int(interval * 1000.0)) {
 
             queue.async {
 

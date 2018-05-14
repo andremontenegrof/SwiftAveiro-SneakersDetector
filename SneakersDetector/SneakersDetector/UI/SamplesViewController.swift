@@ -44,10 +44,7 @@ class SamplesViewController: UIViewController {
 
         let cgImage = self.updateImageView(withImageIndex: self.currentImageIndex)!.cgImage
 
-        DispatchQueue.global(qos: .userInitiated).async {
-
-            self.objectDetector.predict(cgImage: cgImage!)
-        }
+        self.objectDetector.predict(cgImage: cgImage!)
     }
 
     func showBoundingBox(for prediction: ObjectDetector.Prediction) {
@@ -79,14 +76,11 @@ class SamplesViewController: UIViewController {
 
     @IBAction func didPressNext(_ sender: UIButton) {
 
-        self.currentImageIndex = self.currentImageIndex < self.imagePaths.count ? self.currentImageIndex + 1 : 0
+        self.currentImageIndex = self.currentImageIndex < (self.imagePaths.count - 1) ? self.currentImageIndex + 1 : 0
 
         let cgImage = self.updateImageView(withImageIndex: self.currentImageIndex)?.cgImage
 
-        DispatchQueue.global(qos: .userInitiated).async {
-
-            self.objectDetector.predict(cgImage: cgImage!)
-        }
+        self.objectDetector.predict(cgImage: cgImage!)
     }
 
     @IBAction func didPressPrevious(_ sender: UIButton) {
@@ -95,10 +89,7 @@ class SamplesViewController: UIViewController {
 
         let cgImage = self.updateImageView(withImageIndex: self.currentImageIndex)?.cgImage
 
-        DispatchQueue.global(qos: .userInitiated).async {
-
-            self.objectDetector.predict(cgImage: cgImage!)
-        }
+        self.objectDetector.predict(cgImage: cgImage!)
     }
 
     func updateImageView(withImageIndex imageIndex: Int) -> UIImage? {

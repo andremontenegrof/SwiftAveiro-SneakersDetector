@@ -112,10 +112,7 @@ extension TakePhotoViewController: UIImagePickerControllerDelegate, UINavigation
 
         resetBoundingBoxes()
 
-        DispatchQueue.global(qos: .userInitiated).async {
-
-            self.objectDetector.predict(cgImage: image.cgImage!)
-        }
+        self.objectDetector.predict(cgImage: image.cgImage!)
 
         picker.dismiss(animated:true, completion: nil)
     }
