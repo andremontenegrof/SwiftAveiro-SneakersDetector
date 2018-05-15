@@ -77,7 +77,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A915FC492090F01200CD6E5E /* MLModels */ = {
+		A938109920AB2AA90036FECB /* MLModels */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -108,7 +108,7 @@
 				A9B60D9520A3870100425B8F /* NonMaximumSuppression.swift */,
 				A9A3797B2077BC5A00FA1304 /* ObjectDetector.swift */,
 				A9A5B80C20A77C5700C56853 /* Helpers */,
-				A915FC492090F01200CD6E5E /* MLModels */,
+				A938109920AB2AA90036FECB /* MLModels */,
 				A9663AEC207EAE3800DB98F3 /* Resources */,
 				A9AAB54B208386B70065C955 /* UI */,
 			);
