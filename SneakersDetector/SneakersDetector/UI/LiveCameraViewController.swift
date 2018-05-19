@@ -57,7 +57,6 @@ class LiveCameraViewController: UIViewController {
     }
 }
 
-//MARK: - Object Detection
 extension LiveCameraViewController {
 
     func showBoundingBox(for prediction: ObjectDetector.Prediction) {
@@ -103,8 +102,6 @@ extension LiveCameraViewController {
     }
 }
 
-//MARK: - AVFoundation
-
 fileprivate extension LiveCameraViewController {
 
     func startLiveCamera() {
@@ -134,7 +131,6 @@ fileprivate extension LiveCameraViewController {
     }
 }
 
-//MARK: - Camera Capture
 extension LiveCameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 
     func captureOutput(_ output: AVCaptureOutput,

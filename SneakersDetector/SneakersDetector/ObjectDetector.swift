@@ -9,7 +9,7 @@ import Foundation
 import Vision
 import UIKit
 
-//We could have a model outputing Float values instead. Hence the usage of these typealias.
+//We could have a model outputting Float values instead. Hence the usage of these typealias.
 typealias Confidence = Double
 typealias BoxCoordinate = Double
 
@@ -66,11 +66,12 @@ class ObjectDetector {
 
         do {
 
-            //VNCoreMLModel is the Vision object that wraps a CoreML model.
+            // VNCoreMLModel is the Vision object that wraps a CoreML model.
             let visionModel = try VNCoreMLModel(for: model)
 
-            // 2 - Create the detection request by passing the visionModel and self.handleDetection as arguments.
-            // The detection request should be a VNCoreMLRequest. Vision has other types of requests used for built-in features such as barcodes or faces detection. However, VNCoreMLRequest is the one to be used when we want to perform predictions in CoreML models. The results are passed to the completionHandler passed in the initialization.
+            // MARK:- Step 2
+            // Create the detection request by passing the visionModel and self.handleDetection as arguments. self.handleDetection is already implemented below, so you just need to pass it as an argument.
+            // Note: The detection request should be a VNCoreMLRequest. Vision has other types of requests used for built-in features such as detections of faces, barcodes, etc. However, VNCoreMLRequest is the one to be used when we want to perform predictions in CoreML models. The results are passed to the completionHandler passed in the initialization.
 
             //detectionRequest = <#initialize here#>
             detectionRequest?.imageCropAndScaleOption = .scaleFill
@@ -109,15 +110,14 @@ class ObjectDetector {
     }
 }
 
-//MARK: - Predict
 fileprivate extension ObjectDetector {
 
-    // 3 - Implement predict(requestHandler:). For each image we need to perform the detection request against the passed instance of VNImageRequestHandler.
-    //
-    //  Each image used for predictions needs to have its associated VNImageRequestHandler. This pattern exists to be possible to perform several Vision executions in the same image and complete once they all return. For example, we could want to detect faces and objects in the same image all at once. However, in your implementation you only need to perform the detectionRequest
+    // MARK:- Step 3
+    // Implement predict(requestHandler:). For each image we need to perform the detection request against the passed instance of VNImageRequestHandler. The naming in Vision are a bit confusing so please be aware that the completionHandler used to create the detectionRequest is a whole different thing from the 'requestHandler: VNImageRequestHandler'
+    // Note: Each image used for predictions needs to have its associated VNImageRequestHandler. This pattern exists to be possible to perform several Vision executions in the same image and complete once they all return. For example, we could want to detect faces and objects in the same image all at once. However, in your implementation you only need to perform the detectionRequest.
     func predict(requestHandler: VNImageRequestHandler) {
 
-        // <#perform here the detectionRequest agains the given requestHandler#>
+        // <#perform here the detectionRequest against the given requestHandler#>
     }
 
     func handleDetection(for request: VNRequest, error: Error?) {
@@ -128,7 +128,8 @@ fileprivate extension ObjectDetector {
             self.delegate?.didFailPrediction(withError: predictionError)
         }
 
-        // 4 - Get the results the request object. They should be casted to VNCoreMLFeatureValueObservation.
+        // MARK:- Step 4
+        // Get the results from the request object. They should be casted to VNCoreMLFeatureValueObservation.
         // Create the predictions using self.predictions(from:confidenceThreshold:maxCount:) and send them to the ObjectDetectorDelegate.
     }
 
@@ -147,20 +148,19 @@ fileprivate extension ObjectDetector {
 
         var unorderedPredictions = [Prediction]()
 
-        //here we are using the shape property to fetch
         let confidencesCount = confidencesArray.shape[0].intValue
         let classesCount = confidencesArray.shape[1].intValue
-//        let confidencesPointer = UnsafePointer<Confidence>(OpaquePointer(confidencesArray.dataPointer))
         let confidencesPointer = confidencesArray.dataPointer.bindMemory(to: Confidence.self, capacity: confidencesCount)
 
-        // 5 - Use shape property to get the number of boxes
-        let boxesCount = boxesArray.shape[0].intValue
+        // MARK:- Step 5
+        // Use shape property to get the number of boxes. After implementing boxesCount you can uncomment the definition of the boxesPointer
+        let boxesCount = 0 //<#implement here#>
 
-        // 6 - Define boxesPointer. Please see definition of confidencesPointer.
-        //let boxesPointer =
+        //let boxesPointer = boxesArray.dataPointer.bindMemory(to: boxesArray.self, capacity: boxesCount)
 
-        // 7 - Use stride property to properly infer the number of elements that compose the box.
-        //let boxesStride =
+        // MARK:- Step 6
+        // Use stride property to properly infer the number of elements that compose the box.
+        let boxesStride = 0 // <#implement here#>
 
         for boxIdx in 0..<boxesCount {
 
@@ -178,7 +178,9 @@ fileprivate extension ObjectDetector {
                 }
             }
 
-            // 8 - After ? and ? you can uncomment the code related to bounding box creation
+            // MARK:- Step 8
+            // After Step 5 you can uncomment the code related to bounding box creation
+            //
             //create the bounding box
 //            let x = boxesPointer[boxIdx * boxesStride]
 //            let y = boxesPointer[boxIdx * boxesStride + 1]
@@ -191,10 +193,12 @@ fileprivate extension ObjectDetector {
             //we will only return a prediction if its confidence is > confidenceThreshold
             if maxConfidence > confidenceThreshold {
 
-                // 9 - Define boundingBox with the correct value
+                // MARK:- Step 9
+                // Define boundingBox with the correct value
                 let boundingBox = CGRect.zero
 
-                // 10 - Define confidence with the correct value
+                // MARK:- Step 10
+                // Define confidence with the correct value
                 let confidence: Confidence = 0
 
                 let prediction = Prediction(classIndex: bestClassIdx, confidence: confidence, boundingBox: boundingBox)
@@ -203,17 +207,18 @@ fileprivate extension ObjectDetector {
             }
         }
 
-        // 11 - We should sort the unorderedPredictions by confidence before being returning
+        // MARK:- Step 11
+        // We should sort the unorderedPredictions by confidence before returning
 
-        // 12 - Return the ordered predictions capped to the maxCount given as argument.
+        // MARK:- Step 12
+        // Return the ordered predictions capped to the maxCount given as argument.
 
-        // 13 - You can try to apply Non-maximum suppression to return just the boxes with the highest confidence for each object. Implement predictionsAfterNMS(threshold:) in NonMaximumSuppresion.swift
+        // MARK:- Bonus Step (or Homework)
+        // You can try to apply Non-maximum suppression to return just the boxes with the highest confidence for each object. Implement predictionsAfterNMS(threshold:) in NonMaximumSuppresion.swift
 
         return unorderedPredictions
     }
 }
-
-//MARK: - Helpers
 
 fileprivate extension ObjectDetector {
 

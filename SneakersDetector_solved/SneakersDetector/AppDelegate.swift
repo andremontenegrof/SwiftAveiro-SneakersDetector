@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        let model = SneakersDetector_67().model
-        let appMode: AppMode = .staticImages
+        let model = SneakersDetector397().model
+        let appMode: AppMode = .liveCamera
 
         let objectDetector: ObjectDetector = ObjectDetector(model: model)
 

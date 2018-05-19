@@ -22,19 +22,24 @@
 		A918DAD320A7263D00ED373F /* image00008.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A918DAC520A7263D00ED373F /* image00008.jpg */; };
 		A918DAD420A7263D00ED373F /* image00012.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A918DAC620A7263D00ED373F /* image00012.jpg */; };
 		A918DAD520A7263D00ED373F /* image00010.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A918DAC720A7263D00ED373F /* image00010.jpg */; };
+		A95681D720ACDF49008EE6F8 /* 2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A95681D620ACDF49008EE6F8 /* 2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg */; };
+		A95681D920ACDF5B008EE6F8 /* 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A95681D820ACDF5B008EE6F8 /* 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg */; };
+		A95681DB20ACDF7F008EE6F8 /* 398b5eccf8a7a752a08b028b5df1b122.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A95681DA20ACDF7F008EE6F8 /* 398b5eccf8a7a752a08b028b5df1b122.jpg */; };
+		A95681DD20ACDF88008EE6F8 /* beaebe95da51e6a6f523b899760b90f8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A95681DC20ACDF88008EE6F8 /* beaebe95da51e6a6f523b899760b90f8.jpg */; };
 		A95995DA206573C9008F6036 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95995D9206573C9008F6036 /* AppDelegate.swift */; };
 		A95995DC206573C9008F6036 /* SamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95995DB206573C9008F6036 /* SamplesViewController.swift */; };
 		A973F7992098726E00993E71 /* CGRect+ObjectDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973F7982098726E00993E71 /* CGRect+ObjectDetection.swift */; };
 		A9A379762077A13400FA1304 /* MLModel+ObjectDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A379752077A13400FA1304 /* MLModel+ObjectDetection.swift */; };
 		A9A3797C2077BC5A00FA1304 /* ObjectDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A3797B2077BC5A00FA1304 /* ObjectDetector.swift */; };
 		A9A3EDF120837B58006D4A74 /* SamplesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A3EDF020837B58006D4A74 /* SamplesViewController.xib */; };
-		A9A5B80720A76A8F00C56853 /* SneakersDetector_67.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A9A5B80620A76A8F00C56853 /* SneakersDetector_67.mlmodel */; };
-		A9A5B80B20A76B1700C56853 /* SneakersDetector_67_halfprecision.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A9A5B80A20A76B1700C56853 /* SneakersDetector_67_halfprecision.mlmodel */; };
 		A9AAB54620837F210065C955 /* TakePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AAB54520837F210065C955 /* TakePhotoViewController.swift */; };
 		A9AAB5482083818C0065C955 /* LiveCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AAB5472083818C0065C955 /* LiveCameraViewController.swift */; };
 		A9AAB54A208382C30065C955 /* LiveCameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AAB549208382C30065C955 /* LiveCameraViewController.xib */; };
 		A9AE528720A655CF00C11607 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE528620A655CF00C11607 /* Throttler.swift */; };
 		A9B60D9620A3870100425B8F /* NonMaximumSuppression.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B60D9520A3870100425B8F /* NonMaximumSuppression.swift */; };
+		A9BD9A2D20B0C54F006184D2 /* SneakersDetector_67_halfprecision.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A9BD9A2C20B0C54F006184D2 /* SneakersDetector_67_halfprecision.mlmodel */; };
+		A9BD9A2F20B0C597006184D2 /* SneakersDetector397.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A9BD9A2E20B0C597006184D2 /* SneakersDetector397.mlmodel */; };
+		A9BD9A3120B0C5A1006184D2 /* SneakersDetector_67.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A9BD9A3020B0C5A1006184D2 /* SneakersDetector_67.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +58,10 @@
 		A918DAC520A7263D00ED373F /* image00008.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image00008.jpg; sourceTree = "<group>"; };
 		A918DAC620A7263D00ED373F /* image00012.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image00012.jpg; sourceTree = "<group>"; };
 		A918DAC720A7263D00ED373F /* image00010.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image00010.jpg; sourceTree = "<group>"; };
+		A95681D620ACDF49008EE6F8 /* 2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg"; path = "../../../../object-detection/images/images_pinterest_adidas_sneakers/2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg"; sourceTree = "<group>"; };
+		A95681D820ACDF5B008EE6F8 /* 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg; path = "../../../../object-detection/images/images_pinterest_adidas_sneakers/3f1fefe0aa77fb94bc1ded55afafd0aa.jpg"; sourceTree = "<group>"; };
+		A95681DA20ACDF7F008EE6F8 /* 398b5eccf8a7a752a08b028b5df1b122.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 398b5eccf8a7a752a08b028b5df1b122.jpg; path = "../../../../object-detection/images/images_pinterest_adidas_sneakers/398b5eccf8a7a752a08b028b5df1b122.jpg"; sourceTree = "<group>"; };
+		A95681DC20ACDF88008EE6F8 /* beaebe95da51e6a6f523b899760b90f8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = beaebe95da51e6a6f523b899760b90f8.jpg; path = "../../../../object-detection/images/images_pinterest_adidas_sneakers/beaebe95da51e6a6f523b899760b90f8.jpg"; sourceTree = "<group>"; };
 		A95995D6206573C9008F6036 /* SneakersDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SneakersDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95995D9206573C9008F6036 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A95995DB206573C9008F6036 /* SamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplesViewController.swift; sourceTree = "<group>"; };
@@ -61,13 +70,14 @@
 		A9A379752077A13400FA1304 /* MLModel+ObjectDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLModel+ObjectDetection.swift"; sourceTree = "<group>"; };
 		A9A3797B2077BC5A00FA1304 /* ObjectDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetector.swift; sourceTree = "<group>"; };
 		A9A3EDF020837B58006D4A74 /* SamplesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SamplesViewController.xib; sourceTree = "<group>"; };
-		A9A5B80620A76A8F00C56853 /* SneakersDetector_67.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SneakersDetector_67.mlmodel; path = ../../../../mlmodels/SneakersDetector_67.mlmodel; sourceTree = "<group>"; };
-		A9A5B80A20A76B1700C56853 /* SneakersDetector_67_halfprecision.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SneakersDetector_67_halfprecision.mlmodel; path = ../../../../mlmodels/SneakersDetector_67_halfprecision.mlmodel; sourceTree = "<group>"; };
 		A9AAB54520837F210065C955 /* TakePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePhotoViewController.swift; sourceTree = "<group>"; };
 		A9AAB5472083818C0065C955 /* LiveCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCameraViewController.swift; sourceTree = "<group>"; };
 		A9AAB549208382C30065C955 /* LiveCameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveCameraViewController.xib; sourceTree = "<group>"; };
 		A9AE528620A655CF00C11607 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		A9B60D9520A3870100425B8F /* NonMaximumSuppression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonMaximumSuppression.swift; sourceTree = "<group>"; };
+		A9BD9A2C20B0C54F006184D2 /* SneakersDetector_67_halfprecision.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SneakersDetector_67_halfprecision.mlmodel; path = ../../../mlmodels/SneakersDetector_67_halfprecision.mlmodel; sourceTree = "<group>"; };
+		A9BD9A2E20B0C597006184D2 /* SneakersDetector397.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SneakersDetector397.mlmodel; path = ../../../mlmodels/SneakersDetector397.mlmodel; sourceTree = "<group>"; };
+		A9BD9A3020B0C5A1006184D2 /* SneakersDetector_67.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SneakersDetector_67.mlmodel; path = ../../../mlmodels/SneakersDetector_67.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +94,9 @@
 		A915FC492090F01200CD6E5E /* MLModels */ = {
 			isa = PBXGroup;
 			children = (
-				A9A5B80A20A76B1700C56853 /* SneakersDetector_67_halfprecision.mlmodel */,
-				A9A5B80620A76A8F00C56853 /* SneakersDetector_67.mlmodel */,
+				A9BD9A3020B0C5A1006184D2 /* SneakersDetector_67.mlmodel */,
+				A9BD9A2E20B0C597006184D2 /* SneakersDetector397.mlmodel */,
+				A9BD9A2C20B0C54F006184D2 /* SneakersDetector_67_halfprecision.mlmodel */,
 			);
 			path = MLModels;
 			sourceTree = "<group>";
@@ -124,6 +135,10 @@
 		A9663AEC207EAE3800DB98F3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A95681D620ACDF49008EE6F8 /* 2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg */,
+				A95681D820ACDF5B008EE6F8 /* 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg */,
+				A95681DA20ACDF7F008EE6F8 /* 398b5eccf8a7a752a08b028b5df1b122.jpg */,
+				A95681DC20ACDF88008EE6F8 /* beaebe95da51e6a6f523b899760b90f8.jpg */,
 				A918DABA20A7263C00ED373F /* image00001.jpg */,
 				A918DABB20A7263C00ED373F /* image00002.jpg */,
 				A918DAC020A7263C00ED373F /* image00003.jpg */,
@@ -228,8 +243,10 @@
 				A918DACF20A7263D00ED373F /* image00009.jpg in Resources */,
 				A9A3EDF120837B58006D4A74 /* SamplesViewController.xib in Resources */,
 				A918DAD420A7263D00ED373F /* image00012.jpg in Resources */,
+				A95681DB20ACDF7F008EE6F8 /* 398b5eccf8a7a752a08b028b5df1b122.jpg in Resources */,
 				A918DAD020A7263D00ED373F /* image00007.jpg in Resources */,
 				A918DAD120A7263D00ED373F /* image00013.jpg in Resources */,
+				A95681D720ACDF49008EE6F8 /* 2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg in Resources */,
 				A918DAC820A7263D00ED373F /* image00001.jpg in Resources */,
 				A918DACE20A7263D00ED373F /* image00003.jpg in Resources */,
 				A918DAD520A7263D00ED373F /* image00010.jpg in Resources */,
@@ -237,8 +254,10 @@
 				A918DAD320A7263D00ED373F /* image00008.jpg in Resources */,
 				A918DAD220A7263D00ED373F /* image00004.jpg in Resources */,
 				A918DACD20A7263D00ED373F /* image00011.jpg in Resources */,
+				A95681D920ACDF5B008EE6F8 /* 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg in Resources */,
 				A918DAC920A7263D00ED373F /* image00002.jpg in Resources */,
 				A918DACC20A7263D00ED373F /* image00014.jpg in Resources */,
+				A95681DD20ACDF88008EE6F8 /* beaebe95da51e6a6f523b899760b90f8.jpg in Resources */,
 				A915FC482090ED5B00CD6E5E /* TakePhotoViewController.xib in Resources */,
 				A918DACA20A7263D00ED373F /* image00005.jpg in Resources */,
 			);
@@ -252,16 +271,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9A379762077A13400FA1304 /* MLModel+ObjectDetection.swift in Sources */,
+				A9BD9A3120B0C5A1006184D2 /* SneakersDetector_67.mlmodel in Sources */,
 				A95995DC206573C9008F6036 /* SamplesViewController.swift in Sources */,
 				A9AAB5482083818C0065C955 /* LiveCameraViewController.swift in Sources */,
 				A95995DA206573C9008F6036 /* AppDelegate.swift in Sources */,
 				A973F7992098726E00993E71 /* CGRect+ObjectDetection.swift in Sources */,
-				A9A5B80B20A76B1700C56853 /* SneakersDetector_67_halfprecision.mlmodel in Sources */,
+				A9BD9A2D20B0C54F006184D2 /* SneakersDetector_67_halfprecision.mlmodel in Sources */,
 				A9AE528720A655CF00C11607 /* Throttler.swift in Sources */,
 				A9AAB54620837F210065C955 /* TakePhotoViewController.swift in Sources */,
+				A9BD9A2F20B0C597006184D2 /* SneakersDetector397.mlmodel in Sources */,
 				A9A3797C2077BC5A00FA1304 /* ObjectDetector.swift in Sources */,
 				A9B60D9620A3870100425B8F /* NonMaximumSuppression.swift in Sources */,
-				A9A5B80720A76A8F00C56853 /* SneakersDetector_67.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
