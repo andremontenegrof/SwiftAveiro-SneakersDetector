@@ -164,23 +164,24 @@ fileprivate extension ObjectDetector {
 
         for boxIdx in 0..<boxesCount {
 
-            //get the class with the highest confidence
-            var maxConfidence = 0.0
+            //get the class with the highest confidence. In our case there is only one so bestClassIdx will always be the same
+            var bestConfidence = 0.0
             var bestClassIdx = 0
             for classIdx in 0..<classesCount {
 
                 let confidence = confidencesPointer[boxIdx * classesCount + classIdx]
 
-                if confidence > maxConfidence {
+                if confidence > bestConfidence {
 
-                    maxConfidence = confidence
+                    bestConfidence = confidence
                     bestClassIdx = classIdx
                 }
             }
 
-            // MARK:- Step 8
-            // After Step 5 you can uncomment the code related to bounding box creation
-            //
+            // MARK:- Step 7
+            // After Step 6 you can uncomment the code related to bounding box creation.
+            // Take a time to understand how the bounding box properties are being accessed with the pointer. Also uncomment the boundingBox definition.
+
             //create the bounding box
 //            let x = boxesPointer[boxIdx * boxesStride]
 //            let y = boxesPointer[boxIdx * boxesStride + 1]
@@ -188,29 +189,20 @@ fileprivate extension ObjectDetector {
 //            let height = boxesPointer[boxIdx * boxesStride + 3]
 
             //create the normalized rect with its origin
-//            let rect = ObjectDetector.rectFromBoundingBox(x: x, y: y, width: width, height: height)
+//            let boundingBox = ObjectDetector.rectFromBoxCoordinates(x: x, y: y, width: width, height: height)
 
             //we will only return a prediction if its confidence is > confidenceThreshold
-            if maxConfidence > confidenceThreshold {
+            if bestConfidence > confidenceThreshold {
 
-                // MARK:- Step 9
-                // Define boundingBox with the correct value
-                let boundingBox = CGRect.zero
-
-                // MARK:- Step 10
-                // Define confidence with the correct value
-                let confidence: Confidence = 0
-
-                let prediction = Prediction(classIndex: bestClassIdx, confidence: confidence, boundingBox: boundingBox)
-
-                unorderedPredictions.append(prediction)
+                // MARK:- Step 8
+                // Create the prediction and add it to unorderedPredictions
             }
         }
 
-        // MARK:- Step 11
+        // MARK:- Step 9
         // We should sort the unorderedPredictions by confidence before returning
 
-        // MARK:- Step 12
+        // MARK:- Step 10
         // Return the ordered predictions capped to the maxCount given as argument.
 
         // MARK:- Bonus Step (or Homework)
@@ -223,10 +215,10 @@ fileprivate extension ObjectDetector {
 fileprivate extension ObjectDetector {
 
     ///Transforms the given bounding box coordinates to a CGRect. From the given x and y that correspond to the center of the box, we create a CGRect with the actual origin point of the box.
-    static func rectFromBoundingBox(x: BoxCoordinate,
-                                    y: BoxCoordinate,
-                                    width: BoxCoordinate,
-                                    height: BoxCoordinate) -> CGRect {
+    static func rectFromBoxCoordinates(x: BoxCoordinate,
+                                       y: BoxCoordinate,
+                                       width: BoxCoordinate,
+                                       height: BoxCoordinate) -> CGRect {
 
         let origin = CGPoint(x: CGFloat(x - width / 2), y: CGFloat(y - height / 2))
         let size = CGSize(width: CGFloat(width), height: CGFloat(height))

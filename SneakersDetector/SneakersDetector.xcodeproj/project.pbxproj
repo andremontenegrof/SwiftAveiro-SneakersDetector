@@ -187,7 +187,6 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
-				ORGANIZATIONNAME = Farfetch;
 				TargetAttributes = {
 					A95995D5206573C9008F6036 = {
 						CreatedOnToolsVersion = 9.2;

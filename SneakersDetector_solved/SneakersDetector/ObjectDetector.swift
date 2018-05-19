@@ -168,15 +168,15 @@ fileprivate extension ObjectDetector {
         for boxIdx in 0..<boxesCount {
 
             //get the class with the highest confidence
-            var maxConfidence = 0.0
+            var bestConfidence = 0.0
             var bestClassIdx = 0
             for classIdx in 0..<classesCount {
 
                 let confidence = confidencesPointer[boxIdx * classesCount + classIdx]
 
-                if confidence > maxConfidence {
+                if confidence > bestConfidence {
 
-                    maxConfidence = confidence
+                    bestConfidence = confidence
                     bestClassIdx = classIdx
                 }
             }
@@ -188,14 +188,14 @@ fileprivate extension ObjectDetector {
             let height = boxesPointer[boxIdx * boxesStride + 3]
 
             //create the normalized rect with its origin
-            let rect = ObjectDetector.rectFromBoundingBox(x: x, y: y, width: width, height: height)
+            let boundingBox = ObjectDetector.rectFromBoxCoordinates(x: x, y: y, width: width, height: height)
 
             //we will only return a prediction if its confidence is > confidenceThreshold
-            if maxConfidence > confidenceThreshold {
+            if bestConfidence > confidenceThreshold {
 
                 let prediction = Prediction(classIndex: bestClassIdx,
-                                            confidence: maxConfidence,
-                                            boundingBox: rect)
+                                            confidence: bestConfidence,
+                                            boundingBox: boundingBox)
 
                 unorderedPredictions.append(prediction)
             }
@@ -214,10 +214,10 @@ fileprivate extension ObjectDetector {
 fileprivate extension ObjectDetector {
 
     ///Transforms the given bounding box coordinates to a CGRect. From the given x and y that correspond to the center of the box, we create a CGRect with the actual origin point of the box.
-    static func rectFromBoundingBox(x: BoxCoordinate,
-                                    y: BoxCoordinate,
-                                    width: BoxCoordinate,
-                                    height: BoxCoordinate) -> CGRect {
+    static func rectFromBoxCoordinates(x: BoxCoordinate,
+                                       y: BoxCoordinate,
+                                       width: BoxCoordinate,
+                                       height: BoxCoordinate) -> CGRect {
 
         let origin = CGPoint(x: CGFloat(x - width / 2), y: CGFloat(y - height / 2))
         let size = CGSize(width: CGFloat(width), height: CGFloat(height))
