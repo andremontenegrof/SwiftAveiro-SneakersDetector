@@ -10,10 +10,11 @@ import Vision
 import UIKit
 
 //We could have a model outputting Float values instead. Hence the usage of these typealias.
-typealias Confidence = Double
-typealias BoxCoordinate = Double
 
-typealias ClassIndex = Int
+///Confidence is a fractional value between 0 and 1.
+typealias Confidence = Double
+///BoxCoordinate can be the value for x, y, width or height.
+typealias BoxCoordinate = Double
 
 protocol ObjectDetectorDelegate: class {
 
@@ -38,7 +39,7 @@ class ObjectDetector {
 
     struct Prediction {
 
-        let classIndex: ClassIndex
+        let classIndex: Int
         let confidence: Confidence
         let boundingBox: CGRect //normalized rect (all coordinates in [0,1])
     }
@@ -69,7 +70,7 @@ class ObjectDetector {
             // VNCoreMLModel is the Vision object that wraps a CoreML model.
             let visionModel = try VNCoreMLModel(for: model)
 
-            // MARK:- Step 2
+            // MARK:- Step 2 - Vision API - Detection request
             // Create the detection request by passing the visionModel and self.handleDetection as arguments. self.handleDetection is already implemented below, so you just need to pass it as an argument.
             // Note: The detection request should be a VNCoreMLRequest. Vision has other types of requests used for built-in features such as detections of faces, barcodes, etc. However, VNCoreMLRequest is the one to be used when we want to perform predictions in CoreML models. The results are passed to the completionHandler passed in the initialization.
 
@@ -112,12 +113,22 @@ class ObjectDetector {
 
 fileprivate extension ObjectDetector {
 
-    // MARK:- Step 3
-    // Implement predict(requestHandler:). For each image we need to perform the detection request against the passed instance of VNImageRequestHandler. The naming in Vision are a bit confusing so please be aware that the completionHandler used to create the detectionRequest is a whole different thing from the 'requestHandler: VNImageRequestHandler'
-    // Note: Each image used for predictions needs to have its associated VNImageRequestHandler. This pattern exists to be possible to perform several Vision executions in the same image and complete once they all return. For example, we could want to detect faces and objects in the same image all at once. However, in your implementation you only need to perform the detectionRequest.
     func predict(requestHandler: VNImageRequestHandler) {
 
-        // <#perform here the detectionRequest against the given requestHandler#>
+        guard let detectionRequest = self.detectionRequest else {
+
+            self.delegate?.didFailPrediction(withError: ObjectDetectorError.generic)
+            return
+        }
+
+        do {
+
+            try requestHandler.perform([detectionRequest])
+
+        } catch {
+
+            self.delegate?.didFailPrediction(withError: ObjectDetectorError.generic)
+        }
     }
 
     func handleDetection(for request: VNRequest, error: Error?) {
@@ -128,7 +139,7 @@ fileprivate extension ObjectDetector {
             self.delegate?.didFailPrediction(withError: predictionError)
         }
 
-        // MARK:- Step 4
+        // MARK:- Step 3 - Send results to delegate
         // Get the results from the request object. They should be casted to VNCoreMLFeatureValueObservation.
         // Create the predictions using self.predictions(from:confidenceThreshold:maxCount:) and send them to the ObjectDetectorDelegate.
     }
@@ -143,8 +154,8 @@ fileprivate extension ObjectDetector {
                 return nil
         }
 
-        print(boxesArray)
-        print(confidencesArray)
+        print("Boxes Array: " + String(describing: boxesArray))
+        print("Confidences Array: " + String(describing: confidencesArray))
 
         var unorderedPredictions = [Prediction]()
 
@@ -152,13 +163,13 @@ fileprivate extension ObjectDetector {
         let classesCount = confidencesArray.shape[1].intValue
         let confidencesPointer = confidencesArray.dataPointer.bindMemory(to: Confidence.self, capacity: confidencesCount)
 
-        // MARK:- Step 5
-        // Use shape property to get the number of boxes. After implementing boxesCount you can uncomment the definition of the boxesPointer
+        // MARK:- Step 4 - Understanding MLMultiArray - shape
+        // Use shape property to get the number of boxes outputted by or model. You can check the example of the confidencesCount definition. After implementing boxesCount you can uncomment the definition of the boxesPointer
         let boxesCount = 0 //<#implement here#>
 
-        //let boxesPointer = boxesArray.dataPointer.bindMemory(to: boxesArray.self, capacity: boxesCount)
+        let boxesPointer = boxesArray.dataPointer.bindMemory(to: BoxCoordinate.self, capacity: boxesCount)
 
-        // MARK:- Step 6
+        // MARK:- Step 5 - Understanding MLMultiArray - stride
         // Use stride property to properly infer the number of elements that compose the box.
         let boxesStride = 0 // <#implement here#>
 
@@ -178,34 +189,35 @@ fileprivate extension ObjectDetector {
                 }
             }
 
-            // MARK:- Step 7
-            // After Step 6 you can uncomment the code related to bounding box creation.
-            // Take a time to understand how the bounding box properties are being accessed with the pointer. Also uncomment the boundingBox definition.
-
-            //create the bounding box
-//            let x = boxesPointer[boxIdx * boxesStride]
-//            let y = boxesPointer[boxIdx * boxesStride + 1]
-//            let width = boxesPointer[boxIdx * boxesStride + 2]
-//            let height = boxesPointer[boxIdx * boxesStride + 3]
-
-            //create the normalized rect with its origin
-//            let boundingBox = ObjectDetector.rectFromBoxCoordinates(x: x, y: y, width: width, height: height)
-
             //we will only return a prediction if its confidence is > confidenceThreshold
             if bestConfidence > confidenceThreshold {
 
-                // MARK:- Step 8
-                // Create the prediction and add it to unorderedPredictions
+                // MARK:- Step 6 - Understanding bounding box
+                // After Step 5 you can uncomment the code related to bounding box creation.
+                // Take a time to understand how the bounding box properties are being accessed with the pointer. Also uncomment the boundingBox definition.
+
+                //create the bounding box
+                //            let x = boxesPointer[boxIdx * boxesStride]
+                //            let y = boxesPointer[boxIdx * boxesStride + 1]
+                //            let width = boxesPointer[boxIdx * boxesStride + 2]
+                //            let height = boxesPointer[boxIdx * boxesStride + 3]
+
+                //create the normalized rect with its origin
+                //            let boundingBox = ObjectDetector.rectFromBoxCoordinates(x: x, y: y, width: width, height: height)
+
+
+                // MARK:- Step 7 - Create and append prediction to be returned
+                // Create the prediction and add it to unorderedPredictions. After this step, you should be able to see green bounding boxes on top of the images.
             }
         }
 
-        // MARK:- Step 9
-        // We should sort the unorderedPredictions by confidence before returning
+        // MARK:- Step 8 - Sort results
+        // We should sort the unorderedPredictions by confidence before returning.
 
-        // MARK:- Step 10
-        // Return the ordered predictions capped to the maxCount given as argument.
+        // MARK:- Step 9 - Return results capped to maximum number
+        // Return the ordered predictions capped to the maxCount given as argument. Currently we are returning unorderedPredictions. But we should instead return orderedPredictions
 
-        // MARK:- Bonus Step (or Homework)
+        // MARK:- Bonus Step (or Homework) - Implement NMS algorithm
         // You can try to apply Non-maximum suppression to return just the boxes with the highest confidence for each object. Implement predictionsAfterNMS(threshold:) in NonMaximumSuppresion.swift
 
         return unorderedPredictions
