@@ -7,7 +7,7 @@ Here you can find the most relevant references used to learn and develop this pr
 
 ##Object Detection and YOLO model
 * It is worth to check "Week 3 - Detection algorithms" in <https://www.coursera.org/learn/convolutional-neural-networks/>
-* The website of one the YOLO authors: <https://pjreddie.com/darknet/yolo/>
+* The website of one of the YOLO authors: <https://pjreddie.com/darknet/yolo/>
 * Great intuitive video by Siraj Raval: <https://www.youtube.com/watch?v=4eIBisqx9_g>
 
 ##Intersection over Union
