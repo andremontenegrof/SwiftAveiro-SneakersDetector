@@ -13,12 +13,13 @@ One easy way is to use Chrome to inject javascript code that can gather the urls
 ![](assets/ChromeInjectJavascriptToDownloadImages.png)
 
 After having the urls.txt we can use any program to download these images to our disk (you can use [the example in this repo](Scripts/download_image_urls.py)).
+
 ## 2. Annotate the bounding boxes of the images using Labelbox
 Labelbox <https://www.labelbox.com/> is a free and easy tool you can use for annotations.
 
 ![](assets/LabelboxExample.jpg)
 ## 3. Transform the annotated data into a SFrame
-Labelbox has the functionality to export the annotated data to a CSV or JSON file. It is then necessary to transform these data to a data structure that can be loaded with Turicreate ([SFrame](https://apple.github.io/turicreate/docs/api/generated/turicreate.SFrame.html)).
+Labelbox has the functionality to export the annotated data to a CSV or JSON file. It is then necessary to transform these data to a tabular data structure that can be loaded with Turicreate ([SFrame](https://apple.github.io/turicreate/docs/api/generated/turicreate.SFrame.html)).
 
 This is how a Labelbox annotation looks like: 
 
@@ -60,7 +61,7 @@ For more informations about YOLO and object detection, check the [References](re
 
 ## 5. Evaluate the model and analyze results
 It is crucial to evaluate our model with our test data before using it in our app. 
-It is also important to have your test data similar to the data that you are going to predict with your app. In spite of needing just a line of code to save the evaluation results, it is necessary to dive into some machine learning basics to understand the evaluation.
+It is also important to have your test data similar to the data that you are going to predict with your app. In spite of needing just a line of code to save the evaluation results, it is necessary to dive into some machine learning basics to understand the evaluation (e.g.: [Intersection over Union](references.md))
 
 ```python
 scores = model.evaluate(test_data)
