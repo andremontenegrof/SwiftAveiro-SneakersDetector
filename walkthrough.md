@@ -18,12 +18,14 @@ After having the urls.txt we can use any program to download these images to our
 Labelbox <https://www.labelbox.com/> is a free and easy tool you can use for annotations.
 
 ![](assets/LabelboxExample.jpg)
+![](assets/LabelboxHome.png)
+
 ## 3. Transform the annotated data into a SFrame
 Labelbox has the functionality to export the annotated data to a CSV or JSON file. It is then necessary to transform these data to a tabular data structure that can be loaded with Turicreate ([SFrame](https://apple.github.io/turicreate/docs/api/generated/turicreate.SFrame.html)).
 
 This is how a Labelbox annotation looks like: 
 
-```
+```json
 {
 	"External ID": "IMG_6533.jpg",
 	"ID": "cjh1on9ola8g80124grkuhca3",
@@ -70,7 +72,7 @@ scores = model.evaluate(test_data)
 For more information on evaluation, you can refer to [Turicreate object detection advance usage](<https://github.com/apple/turicreate/blob/master/userguide/object_detection/advanced-usage.md>).
 
 ## 6. Export to a Core ML format
-After ensuring that our model is ready to be included in our app, exporting the Turicreate model to a Core ML format is as simple as:
+After ensuring that our model is ready to be included in our app, exporting the Turi Create model to a Core ML format is as simple as:
 
 ```python
 sneakers_detector_model.export_coreml('SneakersDetector.mlmodel')

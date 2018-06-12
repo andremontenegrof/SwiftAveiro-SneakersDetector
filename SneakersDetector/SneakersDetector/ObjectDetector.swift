@@ -22,6 +22,12 @@ protocol ObjectDetectorDelegate: class {
     func didFailPrediction(withError error: Error)
 }
 
+// MARK:- Exercise Tips
+//1. Search for "Mark:- Step". You should find 9 steps to complete. None of these steps should be skipped.
+//2. Make sure it compiles every time you finish a step.
+//3. The comments in the code and Apple's documentation are a great help to understand the needed concepts
+//4. The app works in 3 different modes that can be selected in the ```AppDelegate.swift```. Use the staticImages mode at first and then, once your app starts to present correct bounding boxes, try the liveCamera with a real device ;)
+
 enum ObjectDetectorError: Error {
 
     case generic

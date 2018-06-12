@@ -1,9 +1,9 @@
 #  Swift Aveiro 2018 - Detecting objects with Core ML and Vision 
 
-Welcome to the "Detecting objects with Core ML and Vision" workshop!
+Welcome to *Detecting objects with Core ML and Vision* 🎉👁 👟
 
-The goal of this workshop is to give you a practical intuition of leveraging Machine Learning in a Mobile context. 
-After this workshop you should be unafraid of adventuring yourself with Core ML, Vision and Turicreate.
+The goal of this workshop is to give you a practical intuition of how to leverage machine learning in a mobile app. 
+After today you should be unafraid of adventuring yourself with Core ML, Vision and Turi Create.
 
 This workshop is divided in 2 parts:
 

@@ -6,9 +6,9 @@
 
 ```swift
 enum AppMode {
-	case staticImages
-	case takePhoto
-	case liveCamera
+case staticImages
+case takePhoto
+case liveCamera
 }
 ```
 
