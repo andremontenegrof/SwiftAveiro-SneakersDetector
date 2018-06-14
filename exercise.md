@@ -1,18 +1,7 @@
-## Tips
-1. Search for "Mark:- Step". You should find 9 steps to complete. None of these steps should be skipped.
-2. Make sure it compiles every time you finish a step.
-3. The comments in the code and Apple's documentation are a great help to understand the needed concepts
-4. The app works in 3 different modes that can be selected in the ```AppDelegate.swift```. Use the staticImages mode at first and then, once your app starts to present correct bounding boxes, try the liveCamera with a real device ;)
-
-```swift
-enum AppMode {
-case staticImages
-case takePhoto
-case liveCamera
-}
-```
-
 ## Steps
+* After each step the project should build 👷🏼‍♂️ without errors ❌  
+* Warnings ⚠️ are expected to appear until you complete all steps
+
 ### 1. Understanding the Core ML model 
 Drag and drop the SneakersDetector.mlmodel to the Xcode project.
 ### 2. Vision API - Detection request
@@ -44,5 +33,6 @@ We should sort the `unorderedPredictions` by confidence before returning
 ### 9. Return results capped to maximum number
 Return the ordered predictions capped to the `maxCount` given as argument.
 
-### Bonus - Implement NMS algorithm
+___
+#### Bonus - Implement NMS algorithm
 You can try to apply Non-maximum suppression to return just the boxes with the highest confidence for each object. Implement `predictionsAfterNMS(threshold:)` in NonMaximumSuppresion.swift

@@ -3,7 +3,6 @@ import argparse
 import json
 import os
 import urlparse
-import sframe_utils as utils
 from turicreate import SFrame
 from collections import namedtuple
 
