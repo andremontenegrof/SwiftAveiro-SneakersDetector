@@ -1,5 +1,5 @@
 ## Steps
-* After each step the project should build 👷🏼‍♂️ without errors ❌  
+* After each step the project should build 👷 without errors ❌  
 * Warnings ⚠️ are expected to appear until you complete all steps
 
 ### 1. Understanding the Core ML model 
