@@ -1,11 +1,11 @@
 # Walk-through of the creation and training of our sneakers detector
 Apple's [Create ML Documentation](https://developer.apple.com/documentation/create_ml) describes the machine learning model lifecycle in a very simple way.
 
+These are the steps that describe the path for the creation and training of our sneakers detection model:
+
 <p align="center">
 <img src="assets/ml_cycle_apple.png" height="250" width="250">
 </p>
-
-These are the steps that describe the path for the creation and training of our sneakers detection model.
 
 ## 1. Get the training images
 One easy way is to use Chrome to inject javascript code that can gather the urls while we scroll down a list of Google images. You can find an example in [this article by Adrian Rosebrock](https://www.pyimagesearch.com/2017/12/04/how-to-create-a-deep-learning-dataset-using-google-images/). 
