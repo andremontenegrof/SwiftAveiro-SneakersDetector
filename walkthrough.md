@@ -1,5 +1,5 @@
 # Walk-through of the creation and training of our sneakers detector
-Apple's [Create ML Documentation](https://developer.apple.com/documentation/create_ml) describes the machine learning model lifecycle in a very simple and "digestible" way.
+Apple's [Create ML Documentation](https://developer.apple.com/documentation/create_ml) describes the machine learning model lifecycle in a very simple way.
 
 <p align="center">
 <img src="assets/ml_cycle_apple.png" height="250" width="250">
