@@ -23,10 +23,6 @@
 		A918DAD420A7263D00ED373F /* image00012.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A918DAC620A7263D00ED373F /* image00012.jpg */; };
 		A918DAD520A7263D00ED373F /* image00010.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A918DAC720A7263D00ED373F /* image00010.jpg */; };
 		A94FF6CC20C6755900E27DE3 /* SneakersDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A94FF6CB20C6755900E27DE3 /* SneakersDetector.mlmodel */; };
-		A95681D720ACDF49008EE6F8 /* 2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A95681D620ACDF49008EE6F8 /* 2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg */; };
-		A95681D920ACDF5B008EE6F8 /* 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A95681D820ACDF5B008EE6F8 /* 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg */; };
-		A95681DB20ACDF7F008EE6F8 /* 398b5eccf8a7a752a08b028b5df1b122.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A95681DA20ACDF7F008EE6F8 /* 398b5eccf8a7a752a08b028b5df1b122.jpg */; };
-		A95681DD20ACDF88008EE6F8 /* beaebe95da51e6a6f523b899760b90f8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A95681DC20ACDF88008EE6F8 /* beaebe95da51e6a6f523b899760b90f8.jpg */; };
 		A95995DA206573C9008F6036 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95995D9206573C9008F6036 /* AppDelegate.swift */; };
 		A95995DC206573C9008F6036 /* SamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95995DB206573C9008F6036 /* SamplesViewController.swift */; };
 		A973F7992098726E00993E71 /* CGRect+ObjectDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973F7982098726E00993E71 /* CGRect+ObjectDetection.swift */; };
@@ -57,10 +53,6 @@
 		A918DAC620A7263D00ED373F /* image00012.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image00012.jpg; sourceTree = "<group>"; };
 		A918DAC720A7263D00ED373F /* image00010.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image00010.jpg; sourceTree = "<group>"; };
 		A94FF6CB20C6755900E27DE3 /* SneakersDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SneakersDetector.mlmodel; path = "../../../../SwiftAveiro-SneakersDetector-Models/SneakersDetector.mlmodel"; sourceTree = "<group>"; };
-		A95681D620ACDF49008EE6F8 /* 2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg"; path = "../../../../object-detection/images/images_pinterest_adidas_sneakers/2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg"; sourceTree = "<group>"; };
-		A95681D820ACDF5B008EE6F8 /* 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg; path = "../../../../object-detection/images/images_pinterest_adidas_sneakers/3f1fefe0aa77fb94bc1ded55afafd0aa.jpg"; sourceTree = "<group>"; };
-		A95681DA20ACDF7F008EE6F8 /* 398b5eccf8a7a752a08b028b5df1b122.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 398b5eccf8a7a752a08b028b5df1b122.jpg; path = "../../../../object-detection/images/images_pinterest_adidas_sneakers/398b5eccf8a7a752a08b028b5df1b122.jpg"; sourceTree = "<group>"; };
-		A95681DC20ACDF88008EE6F8 /* beaebe95da51e6a6f523b899760b90f8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = beaebe95da51e6a6f523b899760b90f8.jpg; path = "../../../../object-detection/images/images_pinterest_adidas_sneakers/beaebe95da51e6a6f523b899760b90f8.jpg"; sourceTree = "<group>"; };
 		A95995D6206573C9008F6036 /* SneakersDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SneakersDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95995D9206573C9008F6036 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A95995DB206573C9008F6036 /* SamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplesViewController.swift; sourceTree = "<group>"; };
@@ -129,10 +121,6 @@
 		A9663AEC207EAE3800DB98F3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A95681D620ACDF49008EE6F8 /* 2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg */,
-				A95681D820ACDF5B008EE6F8 /* 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg */,
-				A95681DA20ACDF7F008EE6F8 /* 398b5eccf8a7a752a08b028b5df1b122.jpg */,
-				A95681DC20ACDF88008EE6F8 /* beaebe95da51e6a6f523b899760b90f8.jpg */,
 				A918DABA20A7263C00ED373F /* image00001.jpg */,
 				A918DABB20A7263C00ED373F /* image00002.jpg */,
 				A918DAC020A7263C00ED373F /* image00003.jpg */,
@@ -236,10 +224,8 @@
 				A918DACF20A7263D00ED373F /* image00009.jpg in Resources */,
 				A9A3EDF120837B58006D4A74 /* SamplesViewController.xib in Resources */,
 				A918DAD420A7263D00ED373F /* image00012.jpg in Resources */,
-				A95681DB20ACDF7F008EE6F8 /* 398b5eccf8a7a752a08b028b5df1b122.jpg in Resources */,
 				A918DAD020A7263D00ED373F /* image00007.jpg in Resources */,
 				A918DAD120A7263D00ED373F /* image00013.jpg in Resources */,
-				A95681D720ACDF49008EE6F8 /* 2d25a9904e7cf09262da95618d2107c2--sneakers-adidas-jeans-and-sneakers.jpg in Resources */,
 				A918DAC820A7263D00ED373F /* image00001.jpg in Resources */,
 				A918DACE20A7263D00ED373F /* image00003.jpg in Resources */,
 				A918DAD520A7263D00ED373F /* image00010.jpg in Resources */,
@@ -247,10 +233,8 @@
 				A918DAD320A7263D00ED373F /* image00008.jpg in Resources */,
 				A918DAD220A7263D00ED373F /* image00004.jpg in Resources */,
 				A918DACD20A7263D00ED373F /* image00011.jpg in Resources */,
-				A95681D920ACDF5B008EE6F8 /* 3f1fefe0aa77fb94bc1ded55afafd0aa.jpg in Resources */,
 				A918DAC920A7263D00ED373F /* image00002.jpg in Resources */,
 				A918DACC20A7263D00ED373F /* image00014.jpg in Resources */,
-				A95681DD20ACDF88008EE6F8 /* beaebe95da51e6a6f523b899760b90f8.jpg in Resources */,
 				A915FC482090ED5B00CD6E5E /* TakePhotoViewController.xib in Resources */,
 				A918DACA20A7263D00ED373F /* image00005.jpg in Resources */,
 			);
