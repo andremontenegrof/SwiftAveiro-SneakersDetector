@@ -146,7 +146,7 @@ fileprivate extension ObjectDetector {
         }
 
         // MARK:- Step 3 - Send results to delegate
-        // Get the results from the request object. They should be casted to VNCoreMLFeatureValueObservation.
+        // Get the results from the request object. They should be cast to VNCoreMLFeatureValueObservation.
         // Create the predictions using self.predictions(from:confidenceThreshold:maxCount:) and send them to the ObjectDetectorDelegate.
     }
 

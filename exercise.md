@@ -11,7 +11,7 @@ Create the detection request by passing the `visionModel` and `self.handleDetect
 Note: The detection request should be a VNCoreMLRequest. Vision has other types of requests used for built-in features such as detections of faces, barcodes, etc. However, VNCoreMLRequest is the one to be used when we want to perform predictions in CoreML models. The results are passed to the completionHandler passed in the initialization.
 
 ### 3. Send results to delegate
-Get the results from the request object. They should be casted to VNCoreMLFeatureValueObservation.
+Get the results from the request object. They should be cast to VNCoreMLFeatureValueObservation.
 Create the predictions using `self.predictions(from:confidenceThreshold:maxCount:)` and send them to the ObjectDetectorDelegate.
 
 ### 4. Understanding MLMultiArray - shape

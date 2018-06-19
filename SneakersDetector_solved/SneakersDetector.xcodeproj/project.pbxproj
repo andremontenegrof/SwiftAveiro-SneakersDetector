@@ -22,10 +22,10 @@
 		A918DAD320A7263D00ED373F /* image00008.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A918DAC520A7263D00ED373F /* image00008.jpg */; };
 		A918DAD420A7263D00ED373F /* image00012.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A918DAC620A7263D00ED373F /* image00012.jpg */; };
 		A918DAD520A7263D00ED373F /* image00010.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A918DAC720A7263D00ED373F /* image00010.jpg */; };
-		A94FF6CC20C6755900E27DE3 /* SneakersDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A94FF6CB20C6755900E27DE3 /* SneakersDetector.mlmodel */; };
 		A95995DA206573C9008F6036 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95995D9206573C9008F6036 /* AppDelegate.swift */; };
 		A95995DC206573C9008F6036 /* SamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95995DB206573C9008F6036 /* SamplesViewController.swift */; };
 		A973F7992098726E00993E71 /* CGRect+ObjectDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973F7982098726E00993E71 /* CGRect+ObjectDetection.swift */; };
+		A97A90B520D97A9400500DCF /* SneakersDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A97A90B420D97A9400500DCF /* SneakersDetector.mlmodel */; };
 		A9A379762077A13400FA1304 /* MLModel+ObjectDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A379752077A13400FA1304 /* MLModel+ObjectDetection.swift */; };
 		A9A3797C2077BC5A00FA1304 /* ObjectDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A3797B2077BC5A00FA1304 /* ObjectDetector.swift */; };
 		A9A3EDF120837B58006D4A74 /* SamplesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A3EDF020837B58006D4A74 /* SamplesViewController.xib */; };
@@ -52,12 +52,12 @@
 		A918DAC520A7263D00ED373F /* image00008.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image00008.jpg; sourceTree = "<group>"; };
 		A918DAC620A7263D00ED373F /* image00012.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image00012.jpg; sourceTree = "<group>"; };
 		A918DAC720A7263D00ED373F /* image00010.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image00010.jpg; sourceTree = "<group>"; };
-		A94FF6CB20C6755900E27DE3 /* SneakersDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SneakersDetector.mlmodel; path = "../../../../SwiftAveiro-SneakersDetector-Models/SneakersDetector.mlmodel"; sourceTree = "<group>"; };
 		A95995D6206573C9008F6036 /* SneakersDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SneakersDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95995D9206573C9008F6036 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A95995DB206573C9008F6036 /* SamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplesViewController.swift; sourceTree = "<group>"; };
 		A95995E5206573C9008F6036 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A973F7982098726E00993E71 /* CGRect+ObjectDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+ObjectDetection.swift"; sourceTree = "<group>"; };
+		A97A90B420D97A9400500DCF /* SneakersDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SneakersDetector.mlmodel; path = "../../../../SwiftAveiro-SneakersDetector-Models/SneakersDetector.mlmodel"; sourceTree = "<group>"; };
 		A9A379752077A13400FA1304 /* MLModel+ObjectDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLModel+ObjectDetection.swift"; sourceTree = "<group>"; };
 		A9A3797B2077BC5A00FA1304 /* ObjectDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetector.swift; sourceTree = "<group>"; };
 		A9A3EDF020837B58006D4A74 /* SamplesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SamplesViewController.xib; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 		A915FC492090F01200CD6E5E /* MLModels */ = {
 			isa = PBXGroup;
 			children = (
-				A94FF6CB20C6755900E27DE3 /* SneakersDetector.mlmodel */,
+				A97A90B420D97A9400500DCF /* SneakersDetector.mlmodel */,
 			);
 			path = MLModels;
 			sourceTree = "<group>";
@@ -247,7 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A94FF6CC20C6755900E27DE3 /* SneakersDetector.mlmodel in Sources */,
+				A97A90B520D97A9400500DCF /* SneakersDetector.mlmodel in Sources */,
 				A9A379762077A13400FA1304 /* MLModel+ObjectDetection.swift in Sources */,
 				A95995DC206573C9008F6036 /* SamplesViewController.swift in Sources */,
 				A9AAB5482083818C0065C955 /* LiveCameraViewController.swift in Sources */,
