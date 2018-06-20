@@ -48,7 +48,7 @@ Return the unorderedPredictions capped to the maxCount given as argument of this
 ### 9. Sort results
 We should now sort the capped predictions of Step 8 by their confidence.
 
-After returning the new orderedPredictions array you'll have completed our workshop 🎉! Take the time to explore this codebase, try the app with `liveCamera` mode or take a change at the Bonus Step.
+After returning the new orderedPredictions array you'll have completed the first part of our workshop 🎉! Take the time to explore this codebase, try the app with `liveCamera` mode or take a change at the Bonus Step.
 
 Note: It is expected not to find any difference in the UI between Step 8 and 9 because we are displaying all the bounding boxes (with a confidence greater than our threshold). However, we will need to have our predictions ordered for our Bonus Step, where we will select the best boxes for each detected object.
 
