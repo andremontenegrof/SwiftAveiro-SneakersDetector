@@ -18,7 +18,7 @@ After today you should be unafraid of adventuring yourself with Core ML, Vision 
 1. Download the ```SneakersDetector.mlmodel``` in <https://github.com/andremontenegrof/SwiftAveiro-SneakersDetector-Models/blob/master/SneakersDetector.mlmodel>
 2. Download this repo as a zip file and open `/SneakersDetector/SneakersDetector.xcodeproj/`
 
-3. Try to build SneakersDetector.xcodeproj 😏. It should fail with: ❌ `Cannot call value of non-function type 'module<SneakersDetector>'`
+3. Try to build SneakersDetector.xcodeproj 😏. It should fail with: `Cannot call value of non-function type 'module<SneakersDetector>'`
 
 
 ## 💻 Exercise
