@@ -13,8 +13,6 @@ import UIKit
 typealias Confidence = Double
 typealias BoxCoordinate = Double
 
-typealias ClassIndex = Int
-
 protocol ObjectDetectorDelegate: class {
 
     func didReceive(predictions: [ObjectDetector.Prediction])
@@ -38,14 +36,13 @@ class ObjectDetector {
 
     struct Prediction {
 
-        let classIndex: ClassIndex
         let confidence: Confidence
         let boundingBox: CGRect //normalized rect (all coordinates in [0,1])
     }
 
     weak var delegate: ObjectDetectorDelegate?
 
-    var confidenceThreshold: Confidence = 0.2
+    var confidenceThreshold: Confidence = 0.6
     var maxNumberOfPredictions = 10
 
     var detectionRequest: VNCoreMLRequest?
@@ -140,7 +137,7 @@ fileprivate extension ObjectDetector {
                                                 confidenceThreshold: self.confidenceThreshold,
                                                 maxCount: self.maxNumberOfPredictions) {
 
-            print(predictions)
+//            print(predictions)
             self.delegate?.didReceive(predictions: predictions)
         }
     }
@@ -154,6 +151,9 @@ fileprivate extension ObjectDetector {
 
                 return nil
         }
+
+         print("Boxes Array: " + String(describing: boxesArray))
+//         print("Confidences Array: " + String(describing: confidencesArray))
 
         var unorderedPredictions = [Prediction]()
 
@@ -193,9 +193,7 @@ fileprivate extension ObjectDetector {
             //we will only return a prediction if its confidence is > confidenceThreshold
             if bestConfidence > confidenceThreshold {
 
-                let prediction = Prediction(classIndex: bestClassIdx,
-                                            confidence: bestConfidence,
-                                            boundingBox: boundingBox)
+                let prediction = Prediction(confidence: bestConfidence, boundingBox: boundingBox)
 
                 unorderedPredictions.append(prediction)
             }

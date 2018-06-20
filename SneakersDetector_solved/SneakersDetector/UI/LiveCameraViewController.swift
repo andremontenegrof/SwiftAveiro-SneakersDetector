@@ -64,8 +64,8 @@ extension LiveCameraViewController {
 
         let boundingBoxFrame = self.cameraLayer.frame.subframeWithNormalizedFrame(normalizedFrame: prediction.boundingBox)
 
-        print("self.cameraLayer.frame = \(self.cameraLayer.frame)")
-        print("boundingBoxFrame = \(boundingBoxFrame)")
+//        print("self.cameraLayer.frame = \(self.cameraLayer.frame)")
+//        print("boundingBoxFrame = \(boundingBoxFrame)")
 
         let boundingBoxView = self.boundingBoxView(withFrame: boundingBoxFrame)
 

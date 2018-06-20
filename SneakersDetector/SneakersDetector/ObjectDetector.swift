@@ -22,12 +22,6 @@ protocol ObjectDetectorDelegate: class {
     func didFailPrediction(withError error: Error)
 }
 
-// MARK:- Exercise Tips
-//1. Search for "Mark:- Step". You should find 9 steps to complete. None of these steps should be skipped.
-//2. Make sure it compiles every time you finish a step.
-//3. The comments in the code and Apple's documentation are a great help to understand the needed concepts
-//4. The app works in 3 different modes that can be selected in the ```AppDelegate.swift```. Use the staticImages mode at first and then, once your app starts to present correct bounding boxes, try the liveCamera with a real device ;)
-
 enum ObjectDetectorError: Error {
 
     case generic
@@ -45,14 +39,13 @@ class ObjectDetector {
 
     struct Prediction {
 
-        let classIndex: Int
         let confidence: Confidence
         let boundingBox: CGRect //normalized rect (all coordinates in [0,1])
     }
 
     weak var delegate: ObjectDetectorDelegate?
 
-    var confidenceThreshold: Confidence = 0.2
+    var confidenceThreshold: Confidence = 0.6
     var maxNumberOfPredictions = 10
 
     var detectionRequest: VNCoreMLRequest?
@@ -76,8 +69,16 @@ class ObjectDetector {
             // VNCoreMLModel is the Vision object that wraps a CoreML model.
             let visionModel = try VNCoreMLModel(for: model)
 
-            // MARK:- Step 2 - Vision API - Detection request
-            // Create the detection request by passing the visionModel and self.handleDetection as arguments. self.handleDetection is already implemented below, so you just need to pass it as an argument.
+            // MARK:- Exercise Tips
+
+            //1. After each step the project should build 👷 without errors ❌
+            //2. Warnings ⚠️ are expected to appear until you complete all steps
+            //3. The comments in the code and Apple's documentation are a great help to understand the needed concepts
+            //4. The app works in 3 different modes that can be selected in the ```AppDelegate.swift```. Use the staticImages mode with the Simulator at first and then, once your app starts to present correct bounding boxes, try the liveCamera with a real device 😀.
+
+            // MARK:- Step 1 - Vision API - Detection request
+            // Create the detection request by passing the visionModel and self.handleDetection as arguments. self.handleDetection is a function already implemented below, so you just need to pass it as an argument.
+            // After having initialized the detectionRequest you can advance to step 2
             // Note: The detection request should be a VNCoreMLRequest. Vision has other types of requests used for built-in features such as detections of faces, barcodes, etc. However, VNCoreMLRequest is the one to be used when we want to perform predictions in CoreML models. The results are passed to the completionHandler passed in the initialization.
 
             //detectionRequest = <#initialize here#>
@@ -145,23 +146,28 @@ fileprivate extension ObjectDetector {
             self.delegate?.didFailPrediction(withError: predictionError)
         }
 
-        // MARK:- Step 3 - Send results to delegate
+        // MARK:- Step 2 - Send results to delegate
         // Get the results from the request object. They should be cast to VNCoreMLFeatureValueObservation.
         // Create the predictions using self.predictions(from:confidenceThreshold:maxCount:) and send them to the ObjectDetectorDelegate.
+        // Note: At this moment we don't have any prediction. We will need to complete the implementation of self.predictions(from:confidenceThreshold:maxCount:) in the next steps.
     }
 
     func predictions(from features: [VNCoreMLFeatureValueObservation],
                      confidenceThreshold: Confidence,
                      maxCount: Int) -> [Prediction]? {
 
+        //boxesArray contain
         guard let boxesArray = features[0].featureValue.multiArrayValue,
             let confidencesArray = features[1].featureValue.multiArrayValue else {
 
                 return nil
         }
 
-        print("Boxes Array: " + String(describing: boxesArray))
-        print("Confidences Array: " + String(describing: confidencesArray))
+        // MARK:- Step 3 - Understanding MLMultiArray
+        // The purpose of this function is to transform the output of our model (boxesArray and confidencesArray) to a list of Predictions that can be used in our UI.
+        // Take 2 or 3 minutes to inspect boxesArray and confidencesArray and then advance to Step 4. Uncomment the following lines or just use the debugger 😀
+        // print("Boxes Array: " + String(describing: boxesArray))
+        // print("Confidences Array: " + String(describing: confidencesArray))
 
         var unorderedPredictions = [Prediction]()
 
@@ -170,18 +176,21 @@ fileprivate extension ObjectDetector {
         let confidencesPointer = confidencesArray.dataPointer.bindMemory(to: Confidence.self, capacity: confidencesCount)
 
         // MARK:- Step 4 - Understanding MLMultiArray - shape
-        // Use shape property to get the number of boxes outputted by or model. You can check the example of the confidencesCount definition. After implementing boxesCount you can uncomment the definition of the boxesPointer
-        let boxesCount = 0 //<#implement here#>
+        // Use shape property to get the number of boxes outputted by our model. You can check the example of the above defined confidencesCount.
+        // boxesCount is used below to iterate over our boxes while we create a Prediction for each of them (if the corresponding confidence is greater than a certain threshold)
+        // Note: To help overcome this step you might want to read the documentation of the MLMultiArray's shape.
+        let boxesCount: Int = 0 //<#implement here#>
 
         let boxesPointer = boxesArray.dataPointer.bindMemory(to: BoxCoordinate.self, capacity: boxesCount)
 
         // MARK:- Step 5 - Understanding MLMultiArray - stride
-        // Use stride property to properly infer the number of elements that compose the box.
-        let boxesStride = 0 // <#implement here#>
+        // Define boxesStride using the property strides of the boxesArray.
+        // Note: This boxesStride is later used at Step 6 to access the boxes in the boxesArray. When accessing values of a MLMultiArray, the property strides is used to calculate an element's location in memory.
+        let boxesStride: Int = 0 // <#implement here#>
 
         for boxIdx in 0..<boxesCount {
 
-            //get the class with the highest confidence. In our case there is only one so bestClassIdx will always be the same
+            //For a specific bounding box we need to get the class with the highest confidence (i.e. the type of the object that is more likely to be in that box). In our case there is only one (sneakers), so bestClassIdx will always be 0
             var bestConfidence = 0.0
             var bestClassIdx = 0
             for classIdx in 0..<classesCount {
@@ -195,33 +204,35 @@ fileprivate extension ObjectDetector {
                 }
             }
 
-            //we will only return a prediction if its confidence is > confidenceThreshold
+            //we will only return a prediction if its confidence is greater than our predefined self.confidenceThreshold
             if bestConfidence > confidenceThreshold {
 
-                // MARK:- Step 6 - Understanding bounding box
-                // After Step 5 you can uncomment the code related to bounding box creation.
+                // MARK:- Step 6 - Understanding the bounding box
+                // Uncomment the code related to bounding box creation.
                 // Take a time to understand how the bounding box properties are being accessed with the pointer. Also uncomment the boundingBox definition.
 
                 //create the bounding box
-                //            let x = boxesPointer[boxIdx * boxesStride]
-                //            let y = boxesPointer[boxIdx * boxesStride + 1]
-                //            let width = boxesPointer[boxIdx * boxesStride + 2]
-                //            let height = boxesPointer[boxIdx * boxesStride + 3]
+                //let x = boxesPointer[boxIdx * boxesStride]
+                //let y = boxesPointer[boxIdx * boxesStride + 1]
+                //let width = boxesPointer[boxIdx * boxesStride + 2]
+                //let height = boxesPointer[boxIdx * boxesStride + 3]
 
                 //create the normalized rect with its origin
-                //            let boundingBox = ObjectDetector.rectFromBoxCoordinates(x: x, y: y, width: width, height: height)
+                //let boundingBox = ObjectDetector.rectFromBoxCoordinates(x: x, y: y, width: width, height: height)
 
 
-                // MARK:- Step 7 - Create and append prediction to be returned
+                // MARK:- Step 7 - Create and add a Prediction
                 // Create the prediction and add it to unorderedPredictions. After this step, you should be able to see green bounding boxes on top of the images.
             }
         }
 
-        // MARK:- Step 8 - Sort results
-        // We should sort the unorderedPredictions by confidence before returning.
+        // MARK:- Step 8 - Return results capped to maximum number
+        // Return the unorderedPredictions capped to the maxCount given as argument of this function.
 
-        // MARK:- Step 9 - Return results capped to maximum number
-        // Return the ordered predictions capped to the maxCount given as argument. Currently we are returning unorderedPredictions. But we should instead return orderedPredictions
+        // MARK:- Step 9 - Sort results
+        // We should now sort the capped predictions of Step 8 by their confidence.
+        // After returning the new orderedPredictions array you'll have completed our workshop 🎉! Take the time to explore this codebase or take a change at the Bonus Step.
+        // Note: At this point, returning ordered predictions does not affect the UI because we are displaying all the bounding boxes that have a confidence greater than our threshold. However, we will need to have our predictions ordered for our Bonus Step.
 
         // MARK:- Bonus Step (or Homework) - Implement NMS algorithm
         // You can try to apply Non-maximum suppression to return just the boxes with the highest confidence for each object. Implement predictionsAfterNMS(threshold:) in NonMaximumSuppresion.swift
