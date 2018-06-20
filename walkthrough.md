@@ -62,7 +62,8 @@ The line ```tc.object_detector.create``` is currently using Apple's re-implement
 For more informations about YOLO and object detection, check the [References](references.md) section of this repo.
 
 The final version of our model was trained with 580 images and 4000 epochs.
-The following is the console output of the training:
+The training was performed in a Ubuntu 16.04 machine with a GPU NVIDIA Tesla P100.
+From the console output we can verify that it took around 2 hours:
 
 ```
 2018-06-19 09:43:25  Training    1/4000  Loss  6.313

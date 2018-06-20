@@ -19,8 +19,11 @@ Note: At this moment we don't have any prediction. We will need to complete the 
 ### 3 - Understanding MLMultiArray
 The purpose of this function is to transform the output of our model (boxesArray and confidencesArray) to a list of Predictions that can be used in our UI.
 Take 2 or 3 minutes to inspect boxesArray and confidencesArray and then advance to Step 4. Uncomment the following lines or just use the debugger 😀
-`// print("Boxes Array: " + String(describing: boxesArray))`
-`// print("Confidences Array: " + String(describing: confidencesArray))`
+
+```
+// print("Boxes Array: " + String(describing: boxesArray))
+// print("Confidences Array: " + String(describing: confidencesArray))
+```
 
 ### 4. Understanding MLMultiArray - shape
 Use shape property to get the number of boxes outputted by our model. The definition of boxesCount is similar to the definition of confidencesCount.
