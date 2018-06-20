@@ -231,7 +231,7 @@ fileprivate extension ObjectDetector {
 
         // MARK:- Step 9 - Sort results
         // We should now sort the capped predictions of Step 8 by their confidence.
-        // After returning the new orderedPredictions array you'll have completed our workshop 🎉! Take the time to explore this codebase or take a change at the Bonus Step.
+        // After returning the new orderedPredictions array you'll have completed our workshop 🎉! Take the time to explore this codebase, try the app with `liveCamera` mode or take a change at the Bonus Step.
         // Note: At this point, returning ordered predictions does not affect the UI because we are displaying all the bounding boxes that have a confidence greater than our threshold. However, we will need to have our predictions ordered for our Bonus Step.
 
         // MARK:- Bonus Step (or Homework) - Implement NMS algorithm

@@ -61,12 +61,35 @@ The line ```tc.object_detector.create``` is currently using Apple's re-implement
 
 For more informations about YOLO and object detection, check the [References](references.md) section of this repo.
 
+The final version of our model was trained with 580 images and 4000 epochs.
+The following is the console output of the training:
+
+```
+2018-06-19 09:43:25  Training    1/4000  Loss  6.313
+2018-06-19 09:43:50  Training   11/4000  Loss  5.870
+2018-06-19 09:44:37  Training   19/4000  Loss  5.749
+2018-06-19 09:44:48  Training   28/4000  Loss  5.292
+(...)
+2018-06-19 11:53:13  Training 3998/4000  Loss  1.565
+```
+
 ## 5. Evaluate the model and analyze results
 It is crucial to evaluate our model with our test data before using it in our app. 
 It is also important to have your test data similar to the data that you are going to predict with your app. In spite of needing just a line of code to save the evaluation results, it is necessary to dive into some machine learning basics to understand the evaluation (e.g.: [Intersection over Union](references.md))
 
 ```python
 scores = model.evaluate(test_data)
+```
+
+Example of the output of `scores` after our model being training with 580 images:
+
+```python
+{
+  "average_precision": {
+    "Sneaker": 0.53210488383594856
+  },
+  "mean_average_precision": 0.53210488383594856
+}
 ```
 
 For more information on evaluation, you can refer to [Turicreate object detection advance usage](<https://github.com/apple/turicreate/blob/master/userguide/object_detection/advanced-usage.md>).
