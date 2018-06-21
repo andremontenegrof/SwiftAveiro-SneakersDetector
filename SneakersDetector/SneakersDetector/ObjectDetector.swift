@@ -78,7 +78,7 @@ class ObjectDetector {
 
             // MARK:- Step 1 - Vision API - Detection request
             // Create the detection request by passing the visionModel and self.handleDetection as arguments. self.handleDetection is a function already implemented below, so you just need to pass it as an argument.
-            // After having initialized the detectionRequest you can advance to step 2
+            // After having initialized the detectionRequest you can check how it is being used in predict(requestHandler:) and then advance to step 2.
             // Note: The detection request should be a VNCoreMLRequest. Vision has other types of requests used for built-in features such as detections of faces, barcodes, etc. However, VNCoreMLRequest is the one to be used when we want to perform predictions in CoreML models. The results are passed to the completionHandler passed in the initialization.
 
             //detectionRequest = <#initialize here#>
