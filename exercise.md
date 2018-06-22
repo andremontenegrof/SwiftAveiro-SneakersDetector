@@ -44,11 +44,11 @@ Take a time to understand how the bounding box properties are being accessed wit
 ### 7. Create and add a Prediction
 Create the prediction and add it to `unorderedPredictions`
 
-### 8. Return results capped to maximum number
-Return the unorderedPredictions capped to the `maxCount` given as argument of this function.
+### 8. Sort results
+We should now sort the predictions by their confidence.
 
-### 9. Sort results
-We should now sort the capped predictions of Step 8 by their confidence.
+### 9. Return results capped to maximum number
+Return the unorderedPredictions capped to the maxCount given as argument of this function.
 
 After returning the new orderedPredictions array you'll have completed the first part of our workshop 🎉! Take the time to explore this codebase, try the app with `liveCamera` mode or take a change at the Bonus Step.
 
